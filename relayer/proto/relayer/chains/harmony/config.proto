@@ -3,7 +3,7 @@ package relayer.chains.harmony.config;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/harmony";
+option go_package = "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony";
 option (gogoproto.goproto_getters_all) = false;
 
 message ChainConfig {

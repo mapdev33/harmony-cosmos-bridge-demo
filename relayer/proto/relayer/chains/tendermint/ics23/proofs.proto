@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/ics23";
+option go_package = "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/ics23";
 option (gogoproto.goproto_getters_all) = false;
 
 enum HashOp {

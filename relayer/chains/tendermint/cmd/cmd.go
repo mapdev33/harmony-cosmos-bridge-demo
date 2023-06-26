@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/mapdev33/yui-relayer/config"
 	"github.com/spf13/cobra"
 )
 

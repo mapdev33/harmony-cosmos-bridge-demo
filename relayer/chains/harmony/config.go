@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	sdkcommon "github.com/harmony-one/go-sdk/pkg/common"
 	"github.com/harmony-one/harmony/numeric"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 var _ core.ChainConfigI = (*ChainConfig)(nil)

@@ -7,11 +7,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	transfertypes "github.com/cosmos/ibc-go/modules/apps/transfer/types"
 	"github.com/cosmos/ibc-go/modules/core/02-client/types"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/harmony"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/hyperledger-labs/yui-relayer/config"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony"
+	"github.com/mapdev33/yui-relayer/config"
+	"github.com/mapdev33/yui-relayer/core"
 	"github.com/spf13/cobra"
 )
 

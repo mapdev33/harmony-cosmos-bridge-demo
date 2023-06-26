@@ -4,7 +4,7 @@ package tendermint.light;
 import "gogoproto/gogo.proto";
 import "relayer/chains/tendermint/ics23/proofs.proto";
 
-option go_package = "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types";
+option go_package = "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types";
 option (gogoproto.goproto_getters_all) = false;
 
 message Fraction {

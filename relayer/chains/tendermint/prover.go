@@ -12,11 +12,11 @@ import (
 	chantypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
 	ibcexported "github.com/cosmos/ibc-go/modules/core/exported"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
 	"github.com/tendermint/tendermint/light"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 type Prover struct {

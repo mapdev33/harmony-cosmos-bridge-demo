@@ -31,5 +31,5 @@ Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types:. \
 
 done
 
-cp -r github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/* ./
+cp -r github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/* ./
 rm -rf github.com

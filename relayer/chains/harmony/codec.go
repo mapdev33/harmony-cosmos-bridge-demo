@@ -5,7 +5,7 @@ import (
 	"github.com/cosmos/ibc-go/modules/core/exported"
 	"github.com/cosmos/ibc-go/modules/light-clients/07-tendermint/types"
 	hmylctypes "github.com/datachainlab/ibc-harmony-client/modules/light-clients/harmony/types"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 // RegisterInterfaces register the module interfaces to protobuf Any.

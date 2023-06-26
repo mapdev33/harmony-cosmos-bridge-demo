@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	harmony "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/harmony/module"
-	tendermint "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/module"
-	"github.com/hyperledger-labs/yui-relayer/cmd"
-	mock "github.com/hyperledger-labs/yui-relayer/provers/mock/module"
+	harmony "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony/module"
+	tendermint "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/module"
+	"github.com/mapdev33/yui-relayer/cmd"
+	mock "github.com/mapdev33/yui-relayer/provers/mock/module"
 )
 
 func main() {

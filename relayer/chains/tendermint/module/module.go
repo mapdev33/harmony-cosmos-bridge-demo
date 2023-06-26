@@ -2,9 +2,9 @@ package module
 
 import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/cmd"
-	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/cmd"
+	"github.com/mapdev33/yui-relayer/config"
 	"github.com/spf13/cobra"
 )
 

@@ -646,8 +646,6 @@ github.com/hyperledger-labs/yui-fabric-ibc v0.2.0/go.mod h1:0ey1+ANFpyz+8m9e7XqF
 github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20211102033703-b1c507b339f0/go.mod h1:Y3rEZX46slCFPSXzTRZsbj6F3OgbM+6VvDnnUBmi2mI=
 github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce h1:RsPixEOAR3HvoFuy9Lso4SzjNy3fNMZ8ew8e7PMDyKo=
 github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce/go.mod h1:SM2DcojUzM+oxotM3Whjc/DZLITfwbUVDOIjmkqwQk0=
-github.com/hyperledger-labs/yui-relayer v0.1.1-0.20211209032245-495b5eed40e2 h1:sD9rHvfNGRTiNRdAbIDIUwZw5zN8CwRl60vUfN87oyc=
-github.com/hyperledger-labs/yui-relayer v0.1.1-0.20211209032245-495b5eed40e2/go.mod h1:zXM42GjEBT82RhJP6Z1jCMO1O24rvqBmZHWYLn5eCdg=
 github.com/hyperledger/fabric v1.4.0-rc1.0.20200416031218-eff2f9306191/go.mod h1:SyW8QL0YfvUw0KyQ9oDA9elPRaEKdNl7O8wIApPCQlw=
 github.com/hyperledger/fabric-amcl v0.0.0-20200128223036-d1aa2665426a/go.mod h1:X+DIyUsaTmalOpmpQfIvFZjKHQedrURQ5t4YqquX7lE=
 github.com/hyperledger/fabric-amcl v0.0.0-20200424173818-327c9e2cf77a/go.mod h1:X+DIyUsaTmalOpmpQfIvFZjKHQedrURQ5t4YqquX7lE=
@@ -1003,6 +1001,8 @@ github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329/go.mod h1:C1wdFJiN
 github.com/mailru/easyjson v0.0.0-20190312143242-1de009706dbe/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.0.0-20190614124828-94de47d64c63/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.0.0-20190626092158-b2ccc519800e/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
+github.com/mapdev33/yui-relayer v0.0.0-20230626070526-e2c0f392fc13 h1:lKMRBEGtkk740KeReAG9yWpZvcEMHtGI2xNxl9VwVLI=
+github.com/mapdev33/yui-relayer v0.0.0-20230626070526-e2c0f392fc13/go.mod h1:vsscjpzRBaNXn/Qoiaw4Dj/pcdSncPrm9CxdLDlExSk=
 github.com/marten-seemann/qpack v0.2.1/go.mod h1:F7Gl5L1jIgN1D11ucXefiuJS9UMVP2opoCp2jDKb7wc=
 github.com/marten-seemann/qtls v0.10.0/go.mod h1:UvMd1oaYDACI99/oZUYLzMCkBXQVT0aGm99sJhbT8hs=
 github.com/marten-seemann/qtls-go1-15 v0.1.1/go.mod h1:GyFwywLKkRt+6mfU99csTEY1joMZz5vmB1WNZH3P81I=

@@ -25,7 +25,7 @@ import (
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ics20bank"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ics20transferbank"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/simpletoken"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 const (

@@ -26,7 +26,7 @@ import (
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 	libclient "github.com/tendermint/tendermint/rpc/jsonrpc/client"
 
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 var (

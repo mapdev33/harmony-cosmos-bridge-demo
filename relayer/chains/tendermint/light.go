@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/avast/retry-go"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
 	"github.com/tendermint/tendermint/libs/log"
 	"github.com/tendermint/tendermint/light"
 	lightp "github.com/tendermint/tendermint/light/provider"

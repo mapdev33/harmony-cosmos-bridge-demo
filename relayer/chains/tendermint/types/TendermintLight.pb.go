@@ -6,7 +6,7 @@ package types
 import (
 	encoding_binary "encoding/binary"
 	fmt "fmt"
-	ics23 "github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/ics23"
+	ics23 "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/ics23"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	io "io"

@@ -23,7 +23,7 @@ import (
 	chantypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	committypes "github.com/cosmos/ibc-go/modules/core/23-commitment/types"
 	ibcexported "github.com/cosmos/ibc-go/modules/core/exported"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 	abci "github.com/tendermint/tendermint/abci/types"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 	tmtypes "github.com/tendermint/tendermint/types"

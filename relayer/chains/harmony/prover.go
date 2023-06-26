@@ -24,7 +24,7 @@ import (
 	hmytypes "github.com/harmony-one/harmony/core/types"
 	rpcv2 "github.com/harmony-one/harmony/rpc/v2"
 	"github.com/harmony-one/harmony/shard"
-	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/mapdev33/yui-relayer/core"
 )
 
 type Prover struct {

@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/harmony"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony"
+	"github.com/mapdev33/yui-relayer/config"
 	"github.com/spf13/cobra"
 )
 

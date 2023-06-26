@@ -1,4 +1,4 @@
-module github.com/datachainlab/harmony-cosmos-bridge-demo/relayer
+module github.com/mapdev33/harmony-cosmos-bridge-demo/relayer
 
 go 1.16
 
@@ -15,7 +15,8 @@ require (
 	github.com/harmony-one/harmony v1.10.3-0.20220129011036-4ea9072e5eda
 	// use go bindings with geth v1.9.10, which works with solidity 6.0+
 	github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce
-	github.com/hyperledger-labs/yui-relayer v0.1.1-0.20211209032245-495b5eed40e2
+	github.com/mapdev33/yui-relayer v0.0.0-20230626070526-e2c0f392fc13
+	// github.com/hyperledger-labs/yui-relayer v0.1.1-0.20211209032245-495b5eed40e2
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
@@ -26,6 +27,7 @@ require (
 )
 
 replace (
+	// github.com/hyperledger-labs/yui-relayer => github.com/mapdev33/yui-relayer v0.0.0-20230626061228-421c2830865b
 	github.com/cosmos/ibc-go => github.com/datachainlab/ibc-go v0.0.0-20220628103507-edfd6cd100c3
 	// for harmony-one/harmony
 	github.com/ethereum/go-ethereum v1.9.25 => github.com/ethereum/go-ethereum v1.9.9

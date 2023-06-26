@@ -11,7 +11,7 @@ This is a demonstration of token transfer using IBC between a Harmony network an
 
 # Directory structure
 - contracts ... contracts and migration scripts for harmony
-- relayer ... IBC relayer using [yui-relayer](https://github.com/hyperledger-labs/yui-relayer)
+- relayer ... IBC relayer using [yui-relayer](https://github.com/mapdev33/yui-relayer)
     - chains/harmony ... harmony modules
     - chains/tendermint ... tendermint modules for tendermint-sol
 - tests ... test environments

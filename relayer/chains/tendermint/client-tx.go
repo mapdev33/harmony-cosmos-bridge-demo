@@ -7,7 +7,7 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/modules/core/02-client/types"
 	commitmenttypes "github.com/cosmos/ibc-go/modules/core/23-commitment/types"
 	tmclient "github.com/cosmos/ibc-go/modules/light-clients/07-tendermint/types"
-	"github.com/datachainlab/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/tendermint/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/light"
 )
