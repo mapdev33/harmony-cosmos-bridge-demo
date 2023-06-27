@@ -43,11 +43,17 @@ echo "!!! Tendermint -> Harmony !!!"
 
 echo "Before TM balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
 echo "Before Hmy balance: $(${RLY} harmony query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
+echo "----------begin transfer ----------------"
 ${RLY} tx transfer ibc01 ibc0 ibc1 500samoleans ${HMY_ADDRESS2}
+echo "----------end transfer ----------------"
 sleep ${TX_INTERNAL}
+echo "----------begin relay ----------------"
 ${RLY} tx relay ibc01
+echo "----------end relay ----------------"
 sleep ${TX_INTERNAL}
+echo "----------begin ack ----------------"
 ${RLY} tx acks ibc01
+echo "----------end ack ----------------"
 sleep ${TX_INTERNAL}
 echo "After TM balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
 echo "After Hmy balance: $(${RLY} harmony query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
