@@ -12,6 +12,7 @@ RLY="${RLY_BINARY} --debug"
 
 # XXX set proper value
 TX_INTERNAL=5
+ACK_INTERNAL=30
 CHAINID_ONE=ibc0
 CHAINID_TWO=ibc1
 RLYKEY=testkey
@@ -50,9 +51,9 @@ sleep ${TX_INTERNAL}
 echo "----------begin relay ----------------"
 ${RLY} tx relay ibc01
 echo "----------end relay ----------------"
-sleep ${TX_INTERNAL}
+sleep ${ACK_INTERNAL}
 echo "----------begin ack ----------------"
-${RLY} tx acks ibc01
+retry 5 ${RLY} tx acks ibc01
 echo "----------end ack ----------------"
 sleep ${TX_INTERNAL}
 echo "After TM balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
