@@ -24,7 +24,7 @@ retry 10 $RLY tendermint light init $CHAINID_ONE -f
 # add a path between chain0 and chain1
 $RLY paths add $CHAINID_ONE $CHAINID_TWO $PATH_NAME --file=./configs/path.json
 
-retry 10 $RLY tx clients $PATH_NAME
-retry 10 $RLY tx update-clients $PATH_NAME
-retry 10 $RLY tx connection $PATH_NAME
-retry 10 $RLY tx channel $PATH_NAME
+retry 20 $RLY tx clients $PATH_NAME
+retry 20 $RLY tx update-clients $PATH_NAME
+retry 20 $RLY tx connection $PATH_NAME
+retry 20 $RLY tx channel $PATH_NAME
