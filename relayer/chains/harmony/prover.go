@@ -160,6 +160,7 @@ func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, baseSrcHead
 		return nil, err
 	}
 
+	fmt.Println("-----SetupHeader-----,GetLatestLightHeight", dsth)
 	// retrieve counterparty client from dst chain
 	counterpartyClientRes, err := dstChain.QueryClientState(dsth)
 	if err != nil {
