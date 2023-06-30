@@ -2,6 +2,7 @@ package harmony
 
 import (
 	"errors"
+	"fmt"
 	"log"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -300,6 +301,7 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 		log.Println("config.GasLimit", c.config.GasLimit)
 		return nil, err
 	}
+	fmt.Println("--------send recvPacket ---------")
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
