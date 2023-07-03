@@ -1,18 +1,18 @@
-const IBCHost = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCHost");
-const IBCClient = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCClient");
-const IBCConnection = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCConnection");
-const IBCChannel = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCChannel");
-const IBCHandler = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCHandler");
-const IBCMsgs = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCMsgs");
-const IBCIdentifier = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCIdentifier");
+const IBCHost = artifacts.require("@mapdev33/yui-ibc-solidity/IBCHost");
+const IBCClient = artifacts.require("@mapdev33/yui-ibc-solidity/IBCClient");
+const IBCConnection = artifacts.require("@mapdev33/yui-ibc-solidity/IBCConnection");
+const IBCChannel = artifacts.require("@mapdev33/yui-ibc-solidity/IBCChannel");
+const IBCHandler = artifacts.require("@mapdev33/yui-ibc-solidity/IBCHandler");
+const IBCMsgs = artifacts.require("@mapdev33/yui-ibc-solidity/IBCMsgs");
+const IBCIdentifier = artifacts.require("@mapdev33/yui-ibc-solidity/IBCIdentifier");
 const Identifier = artifacts.require("@datachainlab/tendermint-sol/Identifier");
 const TendermintLightClient = artifacts.require("@datachainlab/tendermint-sol/TendermintLightClient");
   // libs
 const Bytes = artifacts.require("@datachainlab/tendermint-sol/Bytes");
 
-const SimpleToken = artifacts.require("@hyperledger-labs/yui-ibc-solidity/SimpleToken");
-const ICS20TransferBank = artifacts.require("@hyperledger-labs/yui-ibc-solidity/ICS20TransferBank");
-const ICS20Bank = artifacts.require("@hyperledger-labs/yui-ibc-solidity/ICS20Bank");
+const SimpleToken = artifacts.require("@mapdev33/yui-ibc-solidity/SimpleToken");
+const ICS20TransferBank = artifacts.require("@mapdev33/yui-ibc-solidity/ICS20TransferBank");
+const ICS20Bank = artifacts.require("@mapdev33/yui-ibc-solidity/ICS20Bank");
 
 module.exports = function (deployer) {
   deployer.deploy(IBCIdentifier).then(function() {
