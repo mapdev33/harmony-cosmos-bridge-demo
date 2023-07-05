@@ -247,6 +247,7 @@ func (c *Chain) TxChannelOpenConfirm(msg *chantypes.MsgChannelOpenConfirm) (*har
 }
 
 func (c *Chain) TxRecvPacket(msg *chantypes.MsgRecvPacket) (*harmonytypes.Transaction, error) {
+	fmt.Println("*********tx recv-packet", "source", msg.Packet.SourceChannel, "Destination", msg.Packet.DestinationChannel)
 	return c.txIbcHandler(methodRecvPacket, ibchandler.IBCMsgsMsgPacketRecv{
 		Packet: ibchandler.PacketData{
 			Sequence:           msg.Packet.Sequence,
@@ -301,7 +302,7 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 		log.Println("config.GasLimit", c.config.GasLimit)
 		return nil, err
 	}
-	fmt.Println("--------send recvPacket ---------")
+	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", controller.TransactionHash())
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
