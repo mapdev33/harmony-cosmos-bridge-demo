@@ -302,7 +302,9 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 		log.Println("config.GasLimit", c.config.GasLimit)
 		return nil, err
 	}
-	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", controller.TransactionHash())
+	txhash := controller.TransactionHash()
+	txhashlen := len(*txhash)
+	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", controller.TransactionHash(), txhashlen, controller.TransactionInfo().Hash().Hex())
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
