@@ -15,7 +15,7 @@ require (
 	github.com/harmony-one/harmony v1.10.3-0.20220129011036-4ea9072e5eda
 	// use go bindings with geth v1.9.10, which works with solidity 6.0+
 	github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce
-	github.com/mapdev33/yui-relayer v0.0.0-20230626075610-1b2bf0b93d42
+	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
 	// github.com/hyperledger-labs/yui-relayer v0.1.1-0.20211209032245-495b5eed40e2
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/spf13/cobra v1.1.3

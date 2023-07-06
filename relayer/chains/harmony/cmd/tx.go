@@ -66,6 +66,7 @@ func depositCmd(ctx *config.Context) *cobra.Command {
 	return c
 }
 
+// rly harmony tx transfer ibc01 ibc1 --amount 100 --denom ${HMY_TOKEN_DENOM} --receiver ${TM_ADDRESS}
 func xfersend(ctx *config.Context) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "transfer [path-name] [chain-id]",
@@ -97,13 +98,16 @@ func xfersend(ctx *config.Context) *cobra.Command {
 				return err
 			}
 			denom := transfertypes.ParseDenomTrace(d)
+			fmt.Println("============================== denom: ", denom)
 			token := sdk.Coin{
 				Denom:  denom.GetFullDenomPath(),
 				Amount: sdk.Int(sdk.NewUint(amount)),
 			}
+			fmt.Println("============================== token: ", token)
 			if denom.Path != "" {
 				token.Denom = denom.IBCDenom()
 			}
+			fmt.Println("============================== token: ", token)
 
 			// Bech32 address string
 			receiver, err := cmd.Flags().GetString(flagReceiver)
@@ -132,6 +136,9 @@ func xfersend(ctx *config.Context) *cobra.Command {
 					),
 				},
 			}
+
+			fmt.Printf("============================== dst: %T\n", c)
+
 			if tx.Send(nil, c); !tx.Succeeded {
 				return fmt.Errorf("failed to send transfer message")
 			}
