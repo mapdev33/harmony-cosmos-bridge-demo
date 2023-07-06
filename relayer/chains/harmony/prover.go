@@ -160,6 +160,7 @@ func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, baseSrcHead
 		return nil, err
 	}
 
+	fmt.Println("-----SetupHeader-----,GetLatestLightHeight", dsth)
 	// retrieve counterparty client from dst chain
 	counterpartyClientRes, err := dstChain.QueryClientState(dsth)
 	if err != nil {
@@ -229,6 +230,7 @@ func (pr *Prover) QueryClientConsensusStateWithProof(height int64, dstClientCons
 
 // QueryClientStateWithProof returns the ClientState and its proof
 func (pr *Prover) QueryClientStateWithProof(height int64) (*clienttypes.QueryClientStateResponse, error) {
+	fmt.Println("-----QueryClientStateWithProof----")
 	res, err := pr.chain.QueryClientState(height)
 	if err != nil {
 		return nil, err

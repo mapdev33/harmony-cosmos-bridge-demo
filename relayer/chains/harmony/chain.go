@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 	"time"
 
@@ -231,7 +232,8 @@ func (c *Chain) QueryClientState(height int64) (*clienttypes.QueryClientStateRes
 	if err != nil {
 		return nil, err
 	} else if !found {
-		return nil, fmt.Errorf("client not found: %v", c.pathEnd.ClientID)
+		debug.PrintStack()
+		return nil, fmt.Errorf("client not found: %v，%d", c.pathEnd.ClientID, height)
 	}
 	var clientState exported.ClientState
 	if err := c.Codec().UnmarshalInterface(s, &clientState); err != nil {

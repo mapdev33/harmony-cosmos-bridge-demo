@@ -1,5 +1,5 @@
-const ICS20Bank = artifacts.require("@hyperledger-labs/yui-ibc-solidity/ICS20Bank");
-const SimpleToken = artifacts.require("@hyperledger-labs/yui-ibc-solidity/SimpleToken");
+const ICS20Bank = artifacts.require("@mapdev33/yui-ibc-solidity/ICS20Bank");
+const SimpleToken = artifacts.require("@mapdev33/yui-ibc-solidity/SimpleToken");
 
 module.exports = async function (deployer, network, accounts) {
   const ics20Bank = await ICS20Bank.deployed();

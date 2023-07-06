@@ -1,8 +1,8 @@
-const IBCHost = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCHost");
-const IBCHandler = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCHandler");
+const IBCHost = artifacts.require("@mapdev33/yui-ibc-solidity/IBCHost");
+const IBCHandler = artifacts.require("@mapdev33/yui-ibc-solidity/IBCHandler");
 const TendermintLightClient = artifacts.require("@datachainlab/tendermint-sol/TendermintLightClient");
-const ICS20TransferBank = artifacts.require("@hyperledger-labs/yui-ibc-solidity/ICS20TransferBank");
-const ICS20Bank = artifacts.require("@hyperledger-labs/yui-ibc-solidity/ICS20Bank");
+const ICS20TransferBank = artifacts.require("@mapdev33/yui-ibc-solidity/ICS20TransferBank");
+const ICS20Bank = artifacts.require("@mapdev33/yui-ibc-solidity/ICS20Bank");
 
 const PortTransfer = "transfer"
 const TendermintLightClientType = "07-tendermint"

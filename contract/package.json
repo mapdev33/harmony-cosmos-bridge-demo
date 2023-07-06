@@ -6,7 +6,7 @@
     "node": "16.x"
   },
   "dependencies": {
-    "@hyperledger-labs/yui-ibc-solidity": "git+https://github.com/hyperledger-labs/yui-ibc-solidity.git#247f169b23ce738e65a10ee72d49f4666981e96a",
+    "@mapdev33/yui-ibc-solidity": "git+https://github.com/mapdev33/yui-ibc-solidity.git",
     "@datachainlab/tendermint-sol": "git+https://github.com/datachainlab/tendermint-sol.git#4423b99b2b3683cf05161e4e323dd7b48ee65d91"
   },
   "devDependencies": {
