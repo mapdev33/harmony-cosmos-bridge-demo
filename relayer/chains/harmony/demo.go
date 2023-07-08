@@ -2,20 +2,21 @@ package harmony
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/crypto"
 	"log"
 	"math/big"
 	"strings"
 
 	transfertypes "github.com/cosmos/ibc-go/modules/apps/transfer/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/harmony-one/go-sdk/pkg/transaction"
 	harmonytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/numeric"
 )
 
 const (
 	msgTxMsgTransfer = "sendTransfer"
 )
+
+const DefaultGasLimit = 4500000
 
 func (c *Chain) QueryTokenBalance(address common.Address) (*big.Int, error) {
 	return c.simpleToken.BalanceOf(c.CallOpts(context.Background(), -1), address)
@@ -52,15 +53,22 @@ func (c *Chain) txIcs20TransferBank(method string, params ...interface{}) (*harm
 	if err = c.keyStore.Unlock(account, ""); err != nil {
 		return nil, err
 	}
-	controller := transaction.NewController(c.client.messenger, c.keyStore, &account, *c.chainId)
-	nonce := transaction.GetNextPendingNonce(account.Address.Hex(), c.client.messenger)
-	err = controller.ExecuteTransaction(nonce, c.config.GasLimit, &c.config.Ics20TransferBankAddress, c.config.ShardId, c.config.ShardId, numeric.NewDec(0), c.config.GasPriceDec(), input)
+	privateKey, err := crypto.HexToECDSA(c.config.PrivateKey)
 	if err != nil {
-		log.Println("config.GasLimit", c.config.GasLimit)
 		return nil, err
 	}
+	txHash, err := c.warpedETHClient.SendTransaction(account.Address, common.HexToAddress(c.config.Ics20TransferBankAddress), big.NewInt(0), privateKey, input, c.config.GasLimit)
+	if err != nil {
+		return nil, err
+	}
+	_, _, err = c.warpedETHClient.TxConfirmation(txHash)
+	if err != nil {
+		return nil, err
+	}
+
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
-	return controller.TransactionInfo(), nil
+	// todo
+	return &harmonytypes.Transaction{}, nil
 }

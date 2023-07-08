@@ -30,7 +30,7 @@ type Prover struct {
 var _ core.ProverI = (*Prover)(nil)
 
 func NewProver(chain *Chain, config ProverConfig) (*Prover, error) {
-	beaconClient := NewHarmonyClient(chain.config.BeaconRpcAddr)
+	beaconClient := NewHarmonyClient(chain.config.RpcAddr)
 	return &Prover{
 		chain:        chain,
 		beaconClient: beaconClient,

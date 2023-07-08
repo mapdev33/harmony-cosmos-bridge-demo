@@ -2,14 +2,21 @@ package harmony
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/log"
 	"math/big"
 	"strconv"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rpc"
 	sdkrpc "github.com/harmony-one/go-sdk/pkg/rpc"
 	v1 "github.com/harmony-one/go-sdk/pkg/rpc/v1"
@@ -163,6 +170,107 @@ func (wc *WarpedETHClient) LatestHeader(ctx context.Context) (*maptypes.Header, 
 		return nil, err
 	}
 	return header, nil
+}
+
+func (wc *WarpedETHClient) SendTransaction(from, to common.Address, value *big.Int, privateKey *ecdsa.PrivateKey, input []byte, gasLimitSetting uint64) (common.Hash, error) {
+	// Ensure a valid value field and resolve the account nonce
+	logger := log.New("func", "SendTransaction")
+	nonce, err := wc.client.PendingNonceAt(context.Background(), from)
+	if err != nil {
+		logger.Error("PendingNonceAt failed", "error", err)
+		return common.Hash{}, err
+	}
+	gasPrice, err := wc.client.SuggestGasPrice(context.Background())
+	//gasPrice = big.NewInt(1000 000 000 000)
+	if err != nil {
+		log.Error("SuggestGasPrice failed", "error", err)
+		return common.Hash{}, err
+	}
+
+	//If the contract surely has code (or code is not needed), estimate the transaction
+
+	msg := ethereum.CallMsg{From: from, To: &to, GasPrice: gasPrice, Value: value, Data: input}
+	gasLimit, err := wc.client.EstimateGas(context.Background(), msg)
+	if err != nil {
+		logger.Error("EstimateGas failed", "error", err)
+		return common.Hash{}, err
+	}
+	if gasLimit < 1 {
+		if gasLimitSetting != 0 {
+			gasLimit = gasLimitSetting // in units
+		} else {
+			gasLimit = uint64(DefaultGasLimit)
+		}
+	}
+
+	// Create the transaction, sign it and schedule it for execution
+	tx := types.NewTx(&types.LegacyTx{
+		Nonce:    nonce,
+		To:       &to,
+		Value:    value,
+		Gas:      gasLimit,
+		GasPrice: gasPrice,
+		Data:     input,
+	})
+
+	chainID, _ := wc.client.ChainID(context.Background())
+	logger.Info("tx info", "nonce ", nonce, " gasLimit ", gasLimit, " gasPrice ", gasPrice, " chainID ", chainID)
+	signer := types.LatestSignerForChainID(chainID)
+	signedTx, err := types.SignTx(tx, signer, privateKey)
+	if err != nil {
+		log.Error("SignTx failed", "error", err)
+		return common.Hash{}, err
+	}
+
+	err = wc.client.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		log.Error("SendTransaction failed", "error", err)
+		return common.Hash{}, err
+	}
+	return signedTx.Hash(), nil
+}
+
+func (wc *WarpedETHClient) TxConfirmation(txHash common.Hash) (*ethtypes.Transaction, *ethtypes.Receipt, error) {
+	logger := log.New("func", "TxConfirmation")
+	logger.Info("Please waiting ", " txHash ", txHash.String())
+	var (
+		tx        *ethtypes.Transaction
+		isPending bool
+		err       error
+	)
+
+	for {
+		time.Sleep(time.Millisecond * 200)
+		tx, isPending, err = wc.client.TransactionByHash(context.Background(), txHash)
+		if err != nil {
+			logger.Info("TransactionByHash", "error", err)
+		}
+		if !isPending {
+			break
+		}
+	}
+
+	receipt, err := wc.GetTransactionReceiptByHash(txHash)
+	if err != nil {
+		return nil, nil, err
+	}
+	return tx, receipt, nil
+}
+
+func (wc *WarpedETHClient) GetTransactionReceiptByHash(txHash common.Hash) (*ethtypes.Receipt, error) {
+	logger := log.New("func", "GetTransactionReceiptByHash")
+	receipt, err := wc.client.TransactionReceipt(context.Background(), txHash)
+	if err != nil {
+		for {
+			time.Sleep(time.Second)
+			receipt, err = wc.client.TransactionReceipt(context.Background(), txHash)
+			if err == nil {
+				break
+			}
+			logger.Error("TransactionReceipt failed", "error", err)
+		}
+	}
+	return receipt, nil
 }
 
 func GetNumberWithinEpoch(number uint64, epochSize uint64) uint64 {

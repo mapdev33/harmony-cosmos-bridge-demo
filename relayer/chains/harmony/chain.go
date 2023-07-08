@@ -66,12 +66,12 @@ type Chain struct {
 var _ core.ChainI = (*Chain)(nil)
 
 func NewChain(config ChainConfig) (*Chain, error) {
-	client := NewHarmonyClient(config.ShardRpcAddr)
+	client := NewHarmonyClient(config.RpcAddr)
 	chainId, err := config.ChainID()
 	if err != nil {
 		return nil, err
 	}
-	ethClient, err := NewETHClient(config.ShardRpcAddr)
+	ethClient, err := NewETHClient(config.RpcAddr)
 	if err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func (c *Chain) Init(homePath string, timeout time.Duration, codec codec.ProtoCo
 	c.codec = codec
 
 	keyStore := sdkcommon.KeyStoreForPath(filepath.Join(homePath, keyStoreName))
-	key, err := crypto.HexToECDSA(c.config.ShardPrivateKey)
+	key, err := crypto.HexToECDSA(c.config.PrivateKey)
 	if err != nil {
 		return err
 	}

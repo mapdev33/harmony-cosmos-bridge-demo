@@ -34,7 +34,7 @@ func (c ChainConfig) ICS20BankAddress() common.Address {
 }
 
 func (c ChainConfig) ChainID() (*sdkcommon.ChainID, error) {
-	return sdkcommon.StringToChainID(c.HarmonyChainId)
+	return sdkcommon.StringToChainID(c.ChainId)
 }
 
 func (c ChainConfig) GasPriceDec() numeric.Dec {

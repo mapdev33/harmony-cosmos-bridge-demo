@@ -3,7 +3,10 @@ package harmony
 import (
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"log"
+	"math/big"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	transfertypes "github.com/cosmos/ibc-go/modules/apps/transfer/types"
@@ -12,11 +15,9 @@ import (
 	chantypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
 	proto "github.com/gogo/protobuf/proto"
-	"github.com/harmony-one/go-sdk/pkg/transaction"
 	"github.com/harmony-one/harmony/accounts"
 	"github.com/harmony-one/harmony/accounts/abi"
 	harmonytypes "github.com/harmony-one/harmony/core/types"
-	"github.com/harmony-one/harmony/numeric"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
 )
 
@@ -295,20 +296,34 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 	if err = c.keyStore.Unlock(account, ""); err != nil {
 		return nil, err
 	}
-	controller := transaction.NewController(c.client.messenger, c.keyStore, &account, *c.chainId)
-	nonce := transaction.GetNextPendingNonce(account.Address.Hex(), c.client.messenger)
-	err = controller.ExecuteTransaction(nonce, c.config.GasLimit, &c.config.IbcHandlerAddress, c.config.ShardId, c.config.ShardId, numeric.NewDec(0), c.config.GasPriceDec(), input)
+	//controller := transaction.NewController(c.client.messenger, c.keyStore, &account, *c.chainId)
+	//nonce := transaction.GetNextPendingNonce(account.Address.Hex(), c.client.messenger)
+	//err = controller.ExecuteTransaction(nonce, c.config.GasLimit, &c.config.IbcHandlerAddress, c.config.ShardId, c.config.ShardId, numeric.NewDec(0), c.config.GasPriceDec(), input)
+	//if err != nil {
+	//	log.Println("config.GasLimit", c.config.GasLimit)
+	//	return nil, err
+	//}
+
+	privateKey, err := crypto.HexToECDSA(c.config.PrivateKey)
 	if err != nil {
-		log.Println("config.GasLimit", c.config.GasLimit)
 		return nil, err
 	}
-	txhash := controller.TransactionHash()
-	txhashlen := len(*txhash)
-	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", controller.TransactionHash(), txhashlen, controller.TransactionInfo().Hash().Hex())
+	txHash, err := c.warpedETHClient.SendTransaction(account.Address, common.HexToAddress(c.config.IbcHandlerAddress), big.NewInt(0), privateKey, input, c.config.GasLimit)
+	if err != nil {
+		return nil, err
+	}
+	_, _, err = c.warpedETHClient.TxConfirmation(txHash)
+	if err != nil {
+		return nil, err
+	}
+
+	txHashLen := len(txHash.Hex())
+	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", txHash.Hex(), txHashLen)
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
-	return controller.TransactionInfo(), nil
+	// todo Transaction
+	return &harmonytypes.Transaction{}, nil
 }
 
 func (c *Chain) tx(to string, abi *abi.ABI, method string, params ...interface{}) (*harmonytypes.Transaction, error) {
@@ -324,17 +339,33 @@ func (c *Chain) tx(to string, abi *abi.ABI, method string, params ...interface{}
 	if err = c.keyStore.Unlock(account, ""); err != nil {
 		return nil, err
 	}
-	controller := transaction.NewController(c.client.messenger, c.keyStore, &account, *c.chainId)
-	// XXX or pending nonce
-	nonce := transaction.GetNextNonce(account.Address.Hex(), c.client.messenger)
-	err = controller.ExecuteTransaction(nonce, c.config.GasLimit, &to, c.config.ShardId, c.config.ShardId, numeric.NewDec(0), c.config.GasPriceDec(), input)
+
+	//controller := transaction.NewController(c.client.messenger, c.keyStore, &account, *c.chainId)
+	//// XXX or pending nonce
+	//nonce := transaction.GetNextNonce(account.Address.Hex(), c.client.messenger)
+	//err = controller.ExecuteTransaction(nonce, c.config.GasLimit, &to, c.config.ShardId, c.config.ShardId, numeric.NewDec(0), c.config.GasPriceDec(), input)
+	//if err != nil {
+	//	return nil, err
+	//}
+
+	privateKey, err := crypto.HexToECDSA(c.config.PrivateKey)
 	if err != nil {
 		return nil, err
 	}
+	txHash, err := c.warpedETHClient.SendTransaction(account.Address, common.HexToAddress(to), big.NewInt(0), privateKey, input, c.config.GasLimit)
+	if err != nil {
+		return nil, err
+	}
+	_, _, err = c.warpedETHClient.TxConfirmation(txHash)
+	if err != nil {
+		return nil, err
+	}
+
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
-	return controller.TransactionInfo(), nil
+	// todo Transaction
+	return &harmonytypes.Transaction{}, nil
 }
 
 func (chain *Chain) getAccount() (accounts.Account, error) {
