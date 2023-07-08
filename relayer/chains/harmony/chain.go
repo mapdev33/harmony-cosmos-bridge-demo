@@ -45,8 +45,9 @@ type Chain struct {
 	homePath string
 	codec    codec.ProtoCodecMarshaler
 
-	keyStore *keystore.KeyStore
-	client   *Client
+	keyStore        *keystore.KeyStore
+	client          *Client
+	warpedETHClient *WarpedETHClient
 
 	ibcHostAbi    abi.ABI
 	ibcHandlerAbi abi.ABI
@@ -120,6 +121,7 @@ func NewChain(config ChainConfig) (*Chain, error) {
 		config:               config,
 		chainId:              chainId,
 		client:               client,
+		warpedETHClient:      NewWarpedETHClient(ethClient),
 		ibcHost:              ibcHost,
 		ibcHandler:           ibcHandler,
 		ibcHostAbi:           ibcHostAbi,

@@ -8,8 +8,8 @@ import (
 
 func HarmonyCmd(m codec.Codec, ctx *config.Context) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "harmony",
-		Short: "manage harmony configurations",
+		Use:   "map",
+		Short: "manage map configurations",
 	}
 
 	cmd.AddCommand(

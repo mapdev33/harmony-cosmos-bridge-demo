@@ -10,11 +10,12 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/rpc"
 	sdkrpc "github.com/harmony-one/go-sdk/pkg/rpc"
 	v1 "github.com/harmony-one/go-sdk/pkg/rpc/v1"
 	v2 "github.com/harmony-one/harmony/rpc/v2"
+	maptypes "github.com/mapprotocol/atlas/core/types"
+	"github.com/mapprotocol/compass/pkg/ethclient"
 )
 
 const (
@@ -24,6 +25,8 @@ const (
 	MethodCall           = "hmyv2_call"
 )
 
+const EpochSize = 1000
+
 type Client struct {
 	messenger *sdkrpc.HTTPMessenger
 }
@@ -32,6 +35,16 @@ func NewHarmonyClient(endpoint string) *Client {
 	messenger := sdkrpc.NewHTTPHandler(endpoint)
 	return &Client{
 		messenger: messenger,
+	}
+}
+
+type WarpedETHClient struct {
+	client *ethclient.Client
+}
+
+func NewWarpedETHClient(cli *ethclient.Client) *WarpedETHClient {
+	return &WarpedETHClient{
+		client: cli,
 	}
 }
 
@@ -127,3 +140,66 @@ func (c *Client) sendRPC(meth string, params []interface{}) (interface{}, error)
 	}
 	return val, nil
 }
+
+func (wc *WarpedETHClient) BlockNumber() (uint64, error) {
+	return wc.client.BlockNumber(context.Background())
+}
+
+func (wc *WarpedETHClient) LatestEpoch() (uint64, error) {
+	number, err := wc.BlockNumber()
+	if err != nil {
+		return 0, err
+	}
+	return GetEpochNumber(number, EpochSize), nil
+}
+
+func (wc *WarpedETHClient) LatestHeader(ctx context.Context) (*maptypes.Header, error) {
+	number, err := wc.BlockNumber()
+	if err != nil {
+		return nil, err
+	}
+	header, err := wc.client.MAPHeaderByNumber(ctx, new(big.Int).SetUint64(number))
+	if err != nil {
+		return nil, err
+	}
+	return header, nil
+}
+
+func GetNumberWithinEpoch(number uint64, epochSize uint64) uint64 {
+	number = number % epochSize
+	if number == 0 {
+		return epochSize
+	}
+	return number
+}
+
+func IsLastBlockOfEpoch(number uint64, epochSize uint64) bool {
+	return GetNumberWithinEpoch(number, epochSize) == epochSize
+}
+
+func GetEpochNumber(blockNumber uint64, epochSize uint64) uint64 {
+	if IsLastBlockOfEpoch(blockNumber, epochSize) {
+		return blockNumber / epochSize
+	} else {
+		return blockNumber/epochSize + 1
+	}
+}
+
+//func ConvertHeader(h *ethtypes.Header) *maptypes.Header {
+//	return &maptypes.Header{
+//		ParentHash:  h.ParentHash,
+//		Coinbase:    h.Coinbase,
+//		Root:        h.Root,
+//		TxHash:      h.TxHash,
+//		ReceiptHash: h.ReceiptHash,
+//		Bloom:       h.Bloom[:],
+//		Number:      h.Number,
+//		GasLimit:    h.GasLimit,
+//		GasUsed:     h.GasUsed,
+//		Time:        h.Time,
+//		Extra:       h.Extra,
+//		MixDigest:   h.MixDigest,
+//		Nonce:       h.Nonce[:],
+//		BaseFee:     h.BaseFee,
+//	}
+//}

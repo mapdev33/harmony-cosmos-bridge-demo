@@ -8,27 +8,19 @@ option (gogoproto.goproto_getters_all) = false;
 
 message ChainConfig {
   string chain_id = 1;
-  // human name of a chain-id
-  string harmony_chain_id = 2;
-  uint32 shard_id = 3;
-  string shard_rpc_addr = 4;
-  // if shard_id = 0, set the same address as shard_rpc_addr
-  string beacon_rpc_addr = 5;
-  // use for relayer
-  string shard_private_key = 6;
-  // if shard_id = 0, set the same key as shard_private_key
-  string beacon_private_key = 7;
-  string ibc_host_address = 8;
+  string rpc_addr = 2;
+  string private_key = 3;
+  string ibc_host_address = 4;
   // for convenience of demonstration
-  string ibc_handler_address = 9;
+  string ibc_handler_address = 5;
   // for convenience of demonstration
-  string ics20_bank_address = 10;
+  string ics20_bank_address = 6;
   // for convenience of demonstration
-  string ics20_transfer_bank_address = 11;
+  string ics20_transfer_bank_address = 7;
   // for convenience of demonstration
-  string token_address = 12;
-  uint64 gas_limit = 13;
-  int64 gas_price = 14;
+  string token_address = 8;
+  uint64 gas_limit = 9;
+  int64 gas_price = 10;
 }
 
 message ProverConfig {

@@ -14,7 +14,7 @@ var _ config.ModuleI = (*Module)(nil)
 
 // Name returns the name of the module
 func (Module) Name() string {
-	return "harmony"
+	return "map"
 }
 
 // RegisterInterfaces register the module interfaces to protobuf Any.

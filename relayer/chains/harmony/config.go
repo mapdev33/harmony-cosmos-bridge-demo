@@ -42,11 +42,11 @@ func (c ChainConfig) GasPriceDec() numeric.Dec {
 }
 
 func (c ProverConfig) Build(chain core.ChainI) (core.ProverI, error) {
-	hmyChain, ok := chain.(*Chain)
+	mapChain, ok := chain.(*Chain)
 	if !ok {
 		return nil, fmt.Errorf("invalid chain type")
 	}
-	return NewProver(hmyChain, c)
+	return NewProver(mapChain, c)
 }
 
 func (c ProverConfig) TrustingPeriodDuration() (time.Duration, error) {

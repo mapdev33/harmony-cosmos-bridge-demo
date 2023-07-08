@@ -58,7 +58,7 @@ func (chain *Chain) findPacket(
 			chain.config.IBCHandlerAddress(),
 		},
 		Topics: [][]common.Hash{{
-			abiSendPacket.ID(),
+			abiSendPacket.ID,
 		}},
 	}
 	logsData, err := chain.findLogsData(ctx, query)
@@ -116,7 +116,7 @@ func (chain *Chain) getAllPackets(
 			chain.config.IBCHandlerAddress(),
 		},
 		Topics: [][]common.Hash{{
-			abiSendPacket.ID(),
+			abiSendPacket.ID,
 		}},
 	}
 	logsData, err := chain.findLogsData(ctx, query)
@@ -172,7 +172,7 @@ func (chain *Chain) findAcknowledgement(
 			chain.config.IBCHandlerAddress(),
 		},
 		Topics: [][]common.Hash{{
-			abiWriteAcknowledgement.ID(),
+			abiWriteAcknowledgement.ID,
 		}},
 	}
 	logsData, err := chain.findLogsData(ctx, query)
@@ -221,7 +221,7 @@ func (chain *Chain) getAllAcknowledgements(
 			chain.config.IBCHandlerAddress(),
 		},
 		Topics: [][]common.Hash{{
-			abiWriteAcknowledgement.ID(),
+			abiWriteAcknowledgement.ID,
 		}},
 	}
 	logsData, err := chain.findLogsData(ctx, query)

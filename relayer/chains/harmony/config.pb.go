@@ -24,28 +24,20 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type ChainConfig struct {
-	ChainId string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
-	// human name of a chain-id
-	HarmonyChainId string `protobuf:"bytes,2,opt,name=harmony_chain_id,json=harmonyChainId,proto3" json:"harmony_chain_id,omitempty"`
-	ShardId        uint32 `protobuf:"varint,3,opt,name=shard_id,json=shardId,proto3" json:"shard_id,omitempty"`
-	ShardRpcAddr   string `protobuf:"bytes,4,opt,name=shard_rpc_addr,json=shardRpcAddr,proto3" json:"shard_rpc_addr,omitempty"`
-	// if shard_id = 0, set the same address as shard_rpc_addr
-	BeaconRpcAddr string `protobuf:"bytes,5,opt,name=beacon_rpc_addr,json=beaconRpcAddr,proto3" json:"beacon_rpc_addr,omitempty"`
-	// use for relayer
-	ShardPrivateKey string `protobuf:"bytes,6,opt,name=shard_private_key,json=shardPrivateKey,proto3" json:"shard_private_key,omitempty"`
-	// if shard_id = 0, set the same key as shard_private_key
-	BeaconPrivateKey string `protobuf:"bytes,7,opt,name=beacon_private_key,json=beaconPrivateKey,proto3" json:"beacon_private_key,omitempty"`
-	IbcHostAddress   string `protobuf:"bytes,8,opt,name=ibc_host_address,json=ibcHostAddress,proto3" json:"ibc_host_address,omitempty"`
+	ChainId        string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	RpcAddr        string `protobuf:"bytes,2,opt,name=rpc_addr,json=rpcAddr,proto3" json:"rpc_addr,omitempty"`
+	PrivateKey     string `protobuf:"bytes,3,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	IbcHostAddress string `protobuf:"bytes,4,opt,name=ibc_host_address,json=ibcHostAddress,proto3" json:"ibc_host_address,omitempty"`
 	// for convenience of demonstration
-	IbcHandlerAddress string `protobuf:"bytes,9,opt,name=ibc_handler_address,json=ibcHandlerAddress,proto3" json:"ibc_handler_address,omitempty"`
+	IbcHandlerAddress string `protobuf:"bytes,5,opt,name=ibc_handler_address,json=ibcHandlerAddress,proto3" json:"ibc_handler_address,omitempty"`
 	// for convenience of demonstration
-	Ics20BankAddress string `protobuf:"bytes,10,opt,name=ics20_bank_address,json=ics20BankAddress,proto3" json:"ics20_bank_address,omitempty"`
+	Ics20BankAddress string `protobuf:"bytes,6,opt,name=ics20_bank_address,json=ics20BankAddress,proto3" json:"ics20_bank_address,omitempty"`
 	// for convenience of demonstration
-	Ics20TransferBankAddress string `protobuf:"bytes,11,opt,name=ics20_transfer_bank_address,json=ics20TransferBankAddress,proto3" json:"ics20_transfer_bank_address,omitempty"`
+	Ics20TransferBankAddress string `protobuf:"bytes,7,opt,name=ics20_transfer_bank_address,json=ics20TransferBankAddress,proto3" json:"ics20_transfer_bank_address,omitempty"`
 	// for convenience of demonstration
-	TokenAddress string `protobuf:"bytes,12,opt,name=token_address,json=tokenAddress,proto3" json:"token_address,omitempty"`
-	GasLimit     uint64 `protobuf:"varint,13,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
-	GasPrice     int64  `protobuf:"varint,14,opt,name=gas_price,json=gasPrice,proto3" json:"gas_price,omitempty"`
+	TokenAddress string `protobuf:"bytes,8,opt,name=token_address,json=tokenAddress,proto3" json:"token_address,omitempty"`
+	GasLimit     uint64 `protobuf:"varint,9,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
+	GasPrice     int64  `protobuf:"varint,10,opt,name=gas_price,json=gasPrice,proto3" json:"gas_price,omitempty"`
 }
 
 func (m *ChainConfig) Reset()         { *m = ChainConfig{} }
@@ -128,38 +120,34 @@ func init() {
 }
 
 var fileDescriptor_3d1a31f40ed93c46 = []byte{
-	// 493 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0xd3, 0xcf, 0x6e, 0xd3, 0x4e,
-	0x10, 0x07, 0xf0, 0xf8, 0xd7, 0xfc, 0x9a, 0x64, 0x9b, 0x7f, 0x35, 0x1c, 0x5c, 0x2a, 0xac, 0xa8,
-	0x45, 0x60, 0xa1, 0xc6, 0x46, 0x70, 0xe0, 0xc4, 0xa1, 0xcd, 0x85, 0x08, 0x0e, 0x51, 0xc4, 0x89,
-	0x8b, 0xb5, 0xde, 0xdd, 0xae, 0x57, 0x89, 0x77, 0xad, 0xdd, 0x6d, 0xa5, 0xbc, 0x05, 0xef, 0xc3,
-	0x0b, 0xf4, 0xd8, 0x23, 0x47, 0x48, 0x5e, 0x04, 0x79, 0xd6, 0x0e, 0x41, 0xe2, 0x96, 0xf9, 0xce,
-	0x67, 0x26, 0x89, 0x35, 0x46, 0x97, 0x9a, 0xad, 0xf1, 0x86, 0xe9, 0x84, 0xe4, 0x58, 0x48, 0x93,
-	0xe4, 0x58, 0x17, 0x4a, 0x6e, 0x12, 0xa2, 0xe4, 0xad, 0xe0, 0x71, 0xa9, 0x95, 0x55, 0xfe, 0xf3,
-	0x1a, 0xc5, 0x0e, 0xc5, 0x35, 0x8a, 0x1d, 0x7a, 0xf6, 0x94, 0x2b, 0xae, 0x40, 0x26, 0xd5, 0x27,
-	0x37, 0x74, 0xf1, 0xbd, 0x8d, 0x4e, 0x66, 0x95, 0x9f, 0x81, 0xf2, 0xcf, 0x50, 0x17, 0xc6, 0x53,
-	0x41, 0x03, 0x6f, 0xe2, 0x45, 0xbd, 0x65, 0x07, 0xea, 0x39, 0xf5, 0x23, 0x34, 0xae, 0x57, 0xa6,
-	0x7b, 0xf2, 0x1f, 0x90, 0x61, 0x9d, 0xcf, 0x6a, 0x79, 0x86, 0xba, 0x26, 0xc7, 0x9a, 0x56, 0xe2,
-	0x68, 0xe2, 0x45, 0x83, 0x65, 0x07, 0xea, 0x39, 0xf5, 0x5f, 0xa0, 0xa1, 0x6b, 0xe9, 0x92, 0xa4,
-	0x98, 0x52, 0x1d, 0xb4, 0x61, 0x45, 0x1f, 0xd2, 0x65, 0x49, 0xae, 0x29, 0xd5, 0xfe, 0x4b, 0x34,
-	0xca, 0x18, 0x26, 0x4a, 0xfe, 0x61, 0xff, 0x03, 0x1b, 0xb8, 0xb8, 0x71, 0xaf, 0xd1, 0xa9, 0xdb,
-	0x56, 0x6a, 0x71, 0x8f, 0x2d, 0x4b, 0x57, 0x6c, 0x13, 0x1c, 0x83, 0x1c, 0x41, 0x63, 0xe1, 0xf2,
-	0x4f, 0x6c, 0xe3, 0x5f, 0x21, 0xbf, 0xde, 0x79, 0x88, 0x3b, 0x80, 0xc7, 0xae, 0x73, 0xa0, 0x23,
-	0x34, 0x16, 0x19, 0x49, 0x73, 0x65, 0x2c, 0x7c, 0x3f, 0x33, 0x26, 0xe8, 0xba, 0x3f, 0x2b, 0x32,
-	0xf2, 0x51, 0x19, 0x7b, 0xed, 0x52, 0x3f, 0x46, 0x4f, 0x40, 0x62, 0x49, 0xd7, 0x4c, 0xef, 0x71,
-	0x0f, 0xf0, 0x69, 0x85, 0x5d, 0xa7, 0xf1, 0x57, 0xc8, 0x17, 0xc4, 0xbc, 0x7d, 0x93, 0x66, 0x58,
-	0xae, 0xf6, 0x1c, 0xb9, 0xdf, 0x01, 0x9d, 0x1b, 0x2c, 0x57, 0x8d, 0xfe, 0x80, 0xce, 0x9d, 0xb6,
-	0x1a, 0x4b, 0x73, 0xcb, 0xf4, 0xdf, 0x63, 0x27, 0x30, 0x16, 0x00, 0xf9, 0x52, 0x8b, 0xc3, 0xf1,
-	0x4b, 0x34, 0xb0, 0x6a, 0xc5, 0xe4, 0x7e, 0xa0, 0xef, 0x9e, 0x36, 0x84, 0x0d, 0x3a, 0x47, 0x3d,
-	0x8e, 0x4d, 0xba, 0x16, 0x85, 0xb0, 0xc1, 0x60, 0xe2, 0x45, 0xed, 0x65, 0x97, 0x63, 0xf3, 0xb9,
-	0xaa, 0x9b, 0x66, 0xa9, 0x05, 0x61, 0xc1, 0x70, 0xe2, 0x45, 0x47, 0xd0, 0x5c, 0x54, 0xf5, 0xc5,
-	0x7b, 0xd4, 0x5f, 0x68, 0x75, 0xcf, 0x74, 0x7d, 0x3d, 0xaf, 0xd0, 0xc8, 0xea, 0x3b, 0x63, 0x85,
-	0xe4, 0x69, 0xc9, 0xb4, 0x50, 0xcd, 0x11, 0x0d, 0x9b, 0x78, 0x01, 0xe9, 0x0d, 0x7f, 0xf8, 0x15,
-	0xb6, 0x1e, 0xb6, 0xa1, 0xf7, 0xb8, 0x0d, 0xbd, 0x9f, 0xdb, 0xd0, 0xfb, 0xb6, 0x0b, 0x5b, 0x8f,
-	0xbb, 0xb0, 0xf5, 0x63, 0x17, 0xb6, 0xbe, 0xce, 0xb9, 0xb0, 0xf9, 0x5d, 0x16, 0x13, 0x55, 0x24,
-	0x14, 0x5b, 0x0c, 0xe7, 0xb6, 0xc6, 0x59, 0x73, 0xf7, 0x53, 0xa2, 0x4c, 0xa1, 0xcc, 0x34, 0xd3,
-	0x82, 0x72, 0x36, 0xa5, 0xac, 0x50, 0xc9, 0xbf, 0xdf, 0x90, 0xec, 0x18, 0xce, 0xfc, 0xdd, 0xef,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x86, 0x77, 0xd0, 0x07, 0x42, 0x03, 0x00, 0x00,
+	// 421 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0xd2, 0x31, 0x6f, 0xd3, 0x40,
+	0x14, 0x07, 0x70, 0x9b, 0x94, 0x36, 0xb9, 0x96, 0x52, 0x0c, 0x83, 0xa1, 0xc2, 0x44, 0xed, 0x80,
+	0x07, 0x62, 0x23, 0x32, 0x30, 0x31, 0xb4, 0x15, 0x12, 0x08, 0x86, 0xa8, 0x62, 0x62, 0xb1, 0xce,
+	0x77, 0xd7, 0xf3, 0xc9, 0xf1, 0x9d, 0xf5, 0xee, 0x1a, 0xc9, 0x5f, 0x81, 0x89, 0x8f, 0xd5, 0x31,
+	0x23, 0x23, 0x24, 0x5f, 0x04, 0xf9, 0xd9, 0x8e, 0x40, 0xea, 0xe6, 0xf7, 0xfe, 0xbf, 0xbf, 0x97,
+	0x7b, 0xe4, 0x1c, 0xc4, 0x92, 0x36, 0x02, 0x52, 0x56, 0x50, 0xa5, 0x6d, 0x5a, 0x50, 0xa8, 0x8c,
+	0x6e, 0x52, 0x66, 0xf4, 0x8d, 0x92, 0x49, 0x0d, 0xc6, 0x99, 0xe0, 0x65, 0x8f, 0x92, 0x0e, 0x25,
+	0x3d, 0x4a, 0x3a, 0xf4, 0xe2, 0x99, 0x34, 0xd2, 0xa0, 0x4c, 0xdb, 0xaf, 0xae, 0x74, 0xf6, 0x63,
+	0x44, 0x0e, 0xaf, 0x5a, 0x7f, 0x85, 0x2a, 0x78, 0x4e, 0xc6, 0x58, 0xcf, 0x14, 0x0f, 0xfd, 0xa9,
+	0x1f, 0x4f, 0xae, 0x0f, 0x70, 0xfe, 0xcc, 0xdb, 0x08, 0x6a, 0x96, 0x51, 0xce, 0x21, 0x7c, 0xd0,
+	0x45, 0x50, 0xb3, 0x0b, 0xce, 0x21, 0x78, 0x45, 0x0e, 0x6b, 0x50, 0x2b, 0xea, 0x44, 0x56, 0x8a,
+	0x26, 0x1c, 0x61, 0x4a, 0xfa, 0xd5, 0x17, 0xd1, 0x04, 0x31, 0x39, 0x51, 0x39, 0xcb, 0x0a, 0x63,
+	0x1d, 0xfe, 0x40, 0x58, 0x1b, 0xee, 0xa1, 0x3a, 0x56, 0x39, 0xfb, 0x64, 0xac, 0xbb, 0xe8, 0xb6,
+	0x41, 0x42, 0x9e, 0xa2, 0xa4, 0x9a, 0x2f, 0x05, 0xec, 0xf0, 0x43, 0xc4, 0x4f, 0x5a, 0xdc, 0x25,
+	0x83, 0x7f, 0x43, 0x02, 0xc5, 0xec, 0xbb, 0xb7, 0x59, 0x4e, 0x75, 0xb9, 0xe3, 0xfb, 0xc8, 0x4f,
+	0x30, 0xb9, 0xa4, 0xba, 0x1c, 0xf4, 0x07, 0x72, 0xda, 0x69, 0x07, 0x54, 0xdb, 0x1b, 0x01, 0xff,
+	0xd7, 0x0e, 0xb0, 0x16, 0x22, 0xf9, 0xd6, 0x8b, 0x7f, 0xeb, 0xe7, 0xe4, 0x91, 0x33, 0xa5, 0xd0,
+	0xbb, 0xc2, 0x18, 0x0b, 0x47, 0xb8, 0x1c, 0xd0, 0x29, 0x99, 0x48, 0x6a, 0xb3, 0xa5, 0xaa, 0x94,
+	0x0b, 0x27, 0x53, 0x3f, 0xde, 0xbb, 0x1e, 0x4b, 0x6a, 0xbf, 0xb6, 0xf3, 0x10, 0xd6, 0xa0, 0x98,
+	0x08, 0xc9, 0xd4, 0x8f, 0x47, 0x18, 0x2e, 0xda, 0xf9, 0xec, 0x3d, 0x39, 0x5a, 0x80, 0x59, 0x09,
+	0xe8, 0x1f, 0xe3, 0x35, 0x79, 0xec, 0xe0, 0xd6, 0x3a, 0xa5, 0x65, 0x56, 0x0b, 0x50, 0x66, 0x78,
+	0x93, 0xe3, 0x61, 0xbd, 0xc0, 0xed, 0x25, 0xbb, 0xfb, 0x13, 0x79, 0x77, 0x9b, 0xc8, 0x5f, 0x6f,
+	0x22, 0xff, 0xf7, 0x26, 0xf2, 0x7f, 0x6e, 0x23, 0x6f, 0xbd, 0x8d, 0xbc, 0x5f, 0xdb, 0xc8, 0xfb,
+	0xfe, 0x51, 0x2a, 0x57, 0xdc, 0xe6, 0x09, 0x33, 0x55, 0x5a, 0xd1, 0x9a, 0x8b, 0xd5, 0x7c, 0x3e,
+	0x9c, 0xd0, 0x8c, 0x19, 0x5b, 0x19, 0x3b, 0xcb, 0x41, 0x71, 0x29, 0x66, 0x5c, 0x54, 0x26, 0xbd,
+	0xff, 0xd8, 0xf2, 0x7d, 0xbc, 0x98, 0xf9, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x2a, 0x53, 0x4f,
+	0xb2, 0x8d, 0x02, 0x00, 0x00,
 }
 
 func (m *ChainConfig) Marshal() (dAtA []byte, err error) {
@@ -185,85 +173,59 @@ func (m *ChainConfig) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.GasPrice != 0 {
 		i = encodeVarintConfig(dAtA, i, uint64(m.GasPrice))
 		i--
-		dAtA[i] = 0x70
+		dAtA[i] = 0x50
 	}
 	if m.GasLimit != 0 {
 		i = encodeVarintConfig(dAtA, i, uint64(m.GasLimit))
 		i--
-		dAtA[i] = 0x68
+		dAtA[i] = 0x48
 	}
 	if len(m.TokenAddress) > 0 {
 		i -= len(m.TokenAddress)
 		copy(dAtA[i:], m.TokenAddress)
 		i = encodeVarintConfig(dAtA, i, uint64(len(m.TokenAddress)))
 		i--
-		dAtA[i] = 0x62
+		dAtA[i] = 0x42
 	}
 	if len(m.Ics20TransferBankAddress) > 0 {
 		i -= len(m.Ics20TransferBankAddress)
 		copy(dAtA[i:], m.Ics20TransferBankAddress)
 		i = encodeVarintConfig(dAtA, i, uint64(len(m.Ics20TransferBankAddress)))
 		i--
-		dAtA[i] = 0x5a
+		dAtA[i] = 0x3a
 	}
 	if len(m.Ics20BankAddress) > 0 {
 		i -= len(m.Ics20BankAddress)
 		copy(dAtA[i:], m.Ics20BankAddress)
 		i = encodeVarintConfig(dAtA, i, uint64(len(m.Ics20BankAddress)))
 		i--
-		dAtA[i] = 0x52
+		dAtA[i] = 0x32
 	}
 	if len(m.IbcHandlerAddress) > 0 {
 		i -= len(m.IbcHandlerAddress)
 		copy(dAtA[i:], m.IbcHandlerAddress)
 		i = encodeVarintConfig(dAtA, i, uint64(len(m.IbcHandlerAddress)))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x2a
 	}
 	if len(m.IbcHostAddress) > 0 {
 		i -= len(m.IbcHostAddress)
 		copy(dAtA[i:], m.IbcHostAddress)
 		i = encodeVarintConfig(dAtA, i, uint64(len(m.IbcHostAddress)))
 		i--
-		dAtA[i] = 0x42
-	}
-	if len(m.BeaconPrivateKey) > 0 {
-		i -= len(m.BeaconPrivateKey)
-		copy(dAtA[i:], m.BeaconPrivateKey)
-		i = encodeVarintConfig(dAtA, i, uint64(len(m.BeaconPrivateKey)))
-		i--
-		dAtA[i] = 0x3a
-	}
-	if len(m.ShardPrivateKey) > 0 {
-		i -= len(m.ShardPrivateKey)
-		copy(dAtA[i:], m.ShardPrivateKey)
-		i = encodeVarintConfig(dAtA, i, uint64(len(m.ShardPrivateKey)))
-		i--
-		dAtA[i] = 0x32
-	}
-	if len(m.BeaconRpcAddr) > 0 {
-		i -= len(m.BeaconRpcAddr)
-		copy(dAtA[i:], m.BeaconRpcAddr)
-		i = encodeVarintConfig(dAtA, i, uint64(len(m.BeaconRpcAddr)))
-		i--
-		dAtA[i] = 0x2a
-	}
-	if len(m.ShardRpcAddr) > 0 {
-		i -= len(m.ShardRpcAddr)
-		copy(dAtA[i:], m.ShardRpcAddr)
-		i = encodeVarintConfig(dAtA, i, uint64(len(m.ShardRpcAddr)))
-		i--
 		dAtA[i] = 0x22
 	}
-	if m.ShardId != 0 {
-		i = encodeVarintConfig(dAtA, i, uint64(m.ShardId))
+	if len(m.PrivateKey) > 0 {
+		i -= len(m.PrivateKey)
+		copy(dAtA[i:], m.PrivateKey)
+		i = encodeVarintConfig(dAtA, i, uint64(len(m.PrivateKey)))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x1a
 	}
-	if len(m.HarmonyChainId) > 0 {
-		i -= len(m.HarmonyChainId)
-		copy(dAtA[i:], m.HarmonyChainId)
-		i = encodeVarintConfig(dAtA, i, uint64(len(m.HarmonyChainId)))
+	if len(m.RpcAddr) > 0 {
+		i -= len(m.RpcAddr)
+		copy(dAtA[i:], m.RpcAddr)
+		i = encodeVarintConfig(dAtA, i, uint64(len(m.RpcAddr)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -328,26 +290,11 @@ func (m *ChainConfig) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovConfig(uint64(l))
 	}
-	l = len(m.HarmonyChainId)
+	l = len(m.RpcAddr)
 	if l > 0 {
 		n += 1 + l + sovConfig(uint64(l))
 	}
-	if m.ShardId != 0 {
-		n += 1 + sovConfig(uint64(m.ShardId))
-	}
-	l = len(m.ShardRpcAddr)
-	if l > 0 {
-		n += 1 + l + sovConfig(uint64(l))
-	}
-	l = len(m.BeaconRpcAddr)
-	if l > 0 {
-		n += 1 + l + sovConfig(uint64(l))
-	}
-	l = len(m.ShardPrivateKey)
-	if l > 0 {
-		n += 1 + l + sovConfig(uint64(l))
-	}
-	l = len(m.BeaconPrivateKey)
+	l = len(m.PrivateKey)
 	if l > 0 {
 		n += 1 + l + sovConfig(uint64(l))
 	}
@@ -462,7 +409,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field HarmonyChainId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field RpcAddr", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -490,13 +437,13 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.HarmonyChainId = string(dAtA[iNdEx:postIndex])
+			m.RpcAddr = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ShardId", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PrivateKey", wireType)
 			}
-			m.ShardId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowConfig
@@ -506,140 +453,25 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ShardId |= uint32(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthConfig
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthConfig
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PrivateKey = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ShardRpcAddr", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.ShardRpcAddr = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BeaconRpcAddr", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.BeaconRpcAddr = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 6:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ShardPrivateKey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.ShardPrivateKey = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BeaconPrivateKey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.BeaconPrivateKey = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field IbcHostAddress", wireType)
 			}
@@ -671,7 +503,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.IbcHostAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field IbcHandlerAddress", wireType)
 			}
@@ -703,7 +535,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.IbcHandlerAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 10:
+		case 6:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Ics20BankAddress", wireType)
 			}
@@ -735,7 +567,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.Ics20BankAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 11:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Ics20TransferBankAddress", wireType)
 			}
@@ -767,7 +599,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.Ics20TransferBankAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 12:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TokenAddress", wireType)
 			}
@@ -799,7 +631,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.TokenAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 13:
+		case 9:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GasLimit", wireType)
 			}
@@ -818,7 +650,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 14:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GasPrice", wireType)
 			}
