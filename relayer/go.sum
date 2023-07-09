@@ -891,7 +891,6 @@ github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E
 github.com/jwilder/encoding v0.0.0-20170811194829-b4e1701a28ef/go.mod h1:Ct9fl0F6iIOGgxJ5npU/IUOhOhqlVrGjyIZc8/MagT0=
 github.com/kami-zh/go-capturer v0.0.0-20171211120116-e492ea43421d/go.mod h1:P2viExyCEfeWGU259JnaQ34Inuec4R38JCyBx2edgD0=
 github.com/karalabe/usb v0.0.0-20190919080040-51dc0efba356/go.mod h1:Od972xHfMJowv7NGVDiWVxk2zxnWgjLlJzE+F4F7AGU=
-github.com/karalabe/usb v0.0.0-20211005121534-4c5740d64559 h1:0VWDXPNE0brOek1Q8bLfzKkvOzwbQE/snjGojlCr8CY=
 github.com/karalabe/usb v0.0.0-20211005121534-4c5740d64559/go.mod h1:Od972xHfMJowv7NGVDiWVxk2zxnWgjLlJzE+F4F7AGU=
 github.com/karrick/godirwalk v1.10.12/go.mod h1:RoGL9dQei4vP9ilrpETWE8CLOZ1kiN0LhBygSwrAsHA=
 github.com/keybase/go-keychain v0.0.0-20190712205309-48d3d31d256d h1:Z+RDyXzjKE0i2sTjZ/b1uxiGtPhFy34Ou/Tk0qwN0kM=
@@ -1161,8 +1160,8 @@ github.com/mapprotocol/atlas v1.1.5 h1:ajawSCYqgq5KbCVSdtcWpzxQcE4POTJF2iqlbrgMY
 github.com/mapprotocol/atlas v1.1.5/go.mod h1:fwNsT7bxVQDTWBcFLRfxYPaeaxl0fddpVHgn2pOPCiE=
 github.com/mapprotocol/compass v1.0.0 h1:ZbJ3a0CtqaWOdFtwIz68CFaK7w+jKNo6ZgnEZB4QGH4=
 github.com/mapprotocol/compass v1.0.0/go.mod h1:fkN9rVehQgNsaNRU8PtPJ2j8yp0wE1sXZE0225KTF60=
-github.com/mapprotocol/map-light-client v0.0.0-20230630070533-3030e002df79 h1:/AHK/c1GX23oKz90hiVPpuNsooqkACg/JqvBGIjMN7c=
-github.com/mapprotocol/map-light-client v0.0.0-20230630070533-3030e002df79/go.mod h1:xHZR28bzXN2TMO67urfR5oTd8yH79TbQlw1lm3CDLpA=
+github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e h1:3pFM966ZuHaU0LDG2c+TcikDizaqlGhFiwsao/txsGQ=
+github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e/go.mod h1:xHZR28bzXN2TMO67urfR5oTd8yH79TbQlw1lm3CDLpA=
 github.com/mapprotocol/near-api-go v0.0.0-20220801061430-b9e1d4580dc5/go.mod h1:5UbxScOB/xumHSVu0QDatqT8ccm4n/mHWbX+4OjggKk=
 github.com/marten-seemann/qpack v0.2.1/go.mod h1:F7Gl5L1jIgN1D11ucXefiuJS9UMVP2opoCp2jDKb7wc=
 github.com/marten-seemann/qtls v0.10.0/go.mod h1:UvMd1oaYDACI99/oZUYLzMCkBXQVT0aGm99sJhbT8hs=

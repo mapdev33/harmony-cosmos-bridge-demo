@@ -14,7 +14,6 @@ import (
 	conntypes "github.com/cosmos/ibc-go/modules/core/03-connection/types"
 	chantypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	ibcexported "github.com/cosmos/ibc-go/modules/core/exported"
-	hmylctypes "github.com/datachainlab/ibc-harmony-client/modules/light-clients/harmony/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/mapdev33/yui-relayer/core"
 	maptypes "github.com/mapprotocol/atlas/core/types"
@@ -115,7 +114,7 @@ func (pr *Prover) QueryClientConsensusStateWithProof(height int64, dstClientCons
 		return nil, err
 	}
 
-	key, err := hmylctypes.ConsensusStateCommitmentSlot(pr.chain.Path().ClientID, dstClientConsHeight)
+	key, err := maplctypes.ConsensusStateCommitmentSlot(pr.chain.Path().ClientID, dstClientConsHeight)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +134,7 @@ func (pr *Prover) QueryClientStateWithProof(height int64) (*clienttypes.QueryCli
 	if err != nil {
 		return nil, err
 	}
-	key, err := hmylctypes.ClientStateCommitmentSlot(pr.chain.Path().ClientID)
+	key, err := maplctypes.ClientStateCommitmentSlot(pr.chain.Path().ClientID)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +153,7 @@ func (pr *Prover) QueryConnectionWithProof(height int64) (*conntypes.QueryConnec
 	if err != nil {
 		return nil, err
 	}
-	key, err := hmylctypes.ConnectionCommitmentSlot(pr.chain.Path().ConnectionID)
+	key, err := maplctypes.ConnectionCommitmentSlot(pr.chain.Path().ConnectionID)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +173,7 @@ func (pr *Prover) QueryChannelWithProof(height int64) (chanRes *chantypes.QueryC
 		return nil, err
 	}
 	path := pr.chain.Path()
-	key, err := hmylctypes.ChannelCommitmentSlot(path.PortID, path.ChannelID)
+	key, err := maplctypes.ChannelCommitmentSlot(path.PortID, path.ChannelID)
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +193,7 @@ func (pr *Prover) QueryPacketCommitmentWithProof(height int64, seq uint64) (comR
 		return nil, err
 	}
 	path := pr.chain.Path()
-	key, err := hmylctypes.PacketCommitmentSlot(path.PortID, path.ChannelID, seq)
+	key, err := maplctypes.PacketCommitmentSlot(path.PortID, path.ChannelID, seq)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +213,7 @@ func (pr *Prover) QueryPacketAcknowledgementCommitmentWithProof(height int64, se
 		return nil, err
 	}
 	path := pr.chain.Path()
-	key, err := hmylctypes.PacketAcknowledgementCommitmentSlot(path.PortID, path.ChannelID, seq)
+	key, err := maplctypes.PacketAcknowledgementCommitmentSlot(path.PortID, path.ChannelID, seq)
 	if err != nil {
 		return nil, err
 	}

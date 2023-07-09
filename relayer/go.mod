@@ -17,8 +17,7 @@ require (
 	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
 	github.com/mapprotocol/atlas v1.1.5
 	github.com/mapprotocol/compass v1.0.0
-	github.com/mapprotocol/map-light-client v0.0.0-20230630070533-3030e002df79
-	github.com/regen-network/cosmos-proto v0.3.1 // indirect
+	github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
 	github.com/tendermint/tendermint v0.34.10

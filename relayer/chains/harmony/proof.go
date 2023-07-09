@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -58,6 +59,7 @@ func (cl Client) getProof(address common.Address, storageKeys [][]byte, blockNum
 		}
 		hashes = append(hashes, h)
 	}
+	fmt.Printf("============================== getProof params, address: %v, hashes: %v, blockNumber: %v\n", address, hashes, blockNumber)
 	rep, err := cl.messenger.SendRPC(eth.Method.GetProof, []interface{}{
 		address, hashes, blockNumber,
 	})
