@@ -73,6 +73,19 @@ func (cl Client) getProof(address common.Address, storageKeys [][]byte, blockNum
 	return json.Marshal(val)
 }
 
+func (wc WarpedETHClient) getProof(address common.Address, storageKeys [][]byte, blockNumber string) ([]byte, error) {
+	hashes := []common.Hash{}
+	for _, k := range storageKeys {
+		var h common.Hash
+		if err := h.UnmarshalText(k); err != nil {
+			return nil, err
+		}
+		hashes = append(hashes, h)
+	}
+	fmt.Printf("============================== getProof params, address: %v, hashes: %v, blockNumber: %v\n", address, hashes, blockNumber)
+	return wc.getProof(address, storageKeys, blockNumber)
+}
+
 // decodeRLP decodes the proof according to the IBFT2.0 client proof format implemented by yui-ibc-solidity
 // and formats it for Ethereum's Account/Storage Proof.
 func decodeRLP(proof []byte) ([][]byte, error) {
