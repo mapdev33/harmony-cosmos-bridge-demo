@@ -11,7 +11,6 @@ require (
 	github.com/ethereum/go-ethereum v1.10.10
 	github.com/gogo/protobuf v1.3.3
 	github.com/harmony-one/go-sdk v1.2.8
-	github.com/harmony-one/harmony v1.10.3-0.20220129011036-4ea9072e5eda
 	// use go bindings with geth v1.9.10, which works with solidity 6.0+
 	github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce
 	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
@@ -28,8 +27,6 @@ require (
 replace (
 	// github.com/hyperledger-labs/yui-relayer => github.com/mapdev33/yui-relayer v0.0.0-20230626061228-421c2830865b
 	github.com/cosmos/ibc-go => github.com/datachainlab/ibc-go v0.0.0-20220628103507-edfd6cd100c3
-	// for harmony-one/harmony
-	github.com/ethereum/go-ethereum v1.9.25 => github.com/ethereum/go-ethereum v1.9.9
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.4
 	github.com/harmony-one/go-sdk => github.com/datachainlab/go-sdk v1.2.9-0.20220106070458-8ce5f5c807b2
 )

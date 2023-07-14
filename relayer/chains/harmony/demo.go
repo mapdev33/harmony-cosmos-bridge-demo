@@ -9,7 +9,7 @@ import (
 
 	transfertypes "github.com/cosmos/ibc-go/modules/apps/transfer/types"
 	"github.com/ethereum/go-ethereum/common"
-	harmonytypes "github.com/harmony-one/harmony/core/types"
+	harmonytypes "github.com/ethereum/go-ethereum/core/types"
 )
 
 const (

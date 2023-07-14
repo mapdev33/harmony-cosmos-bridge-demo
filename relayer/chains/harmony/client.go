@@ -3,7 +3,6 @@ package harmony
 import (
 	"context"
 	"crypto/ecdsa"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
@@ -11,7 +10,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
 	"math/big"
-	"strconv"
 	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -20,7 +18,6 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	sdkrpc "github.com/harmony-one/go-sdk/pkg/rpc"
 	v1 "github.com/harmony-one/go-sdk/pkg/rpc/v1"
-	v2 "github.com/harmony-one/harmony/rpc/v2"
 	maptypes "github.com/mapprotocol/atlas/core/types"
 	"github.com/mapprotocol/compass/pkg/ethclient"
 )
@@ -80,28 +77,28 @@ func (c *Client) BlockNumber(ctx context.Context) (uint64, error) {
 
 // FullHeader returns the harmony full header for the given height.
 // The complete header can be used to calculate the hash value.
-func (c *Client) FullHeader(ctx context.Context, height uint64) (*v2.BlockHeader, error) {
-	var heightArg string
-	if height >= 0 {
-		heightArg = strconv.FormatUint(height, 10)
-	} else {
-		heightArg = "latest"
-	}
-	val, err := c.sendRPC(MethodGetFullHeader, []interface{}{heightArg})
-	if err != nil {
-		return nil, err
-	}
-
-	jsonStr, err := json.Marshal(val)
-	if err != nil {
-		return nil, err
-	}
-	var header v2.BlockHeader
-	if err := json.Unmarshal(jsonStr, &header); err != nil {
-		return nil, err
-	}
-	return &header, nil
-}
+//func (c *Client) FullHeader(ctx context.Context, height uint64) (*v2.BlockHeader, error) {
+//	var heightArg string
+//	if height >= 0 {
+//		heightArg = strconv.FormatUint(height, 10)
+//	} else {
+//		heightArg = "latest"
+//	}
+//	val, err := c.sendRPC(MethodGetFullHeader, []interface{}{heightArg})
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	jsonStr, err := json.Marshal(val)
+//	if err != nil {
+//		return nil, err
+//	}
+//	var header v2.BlockHeader
+//	if err := json.Unmarshal(jsonStr, &header); err != nil {
+//		return nil, err
+//	}
+//	return &header, nil
+//}
 
 // EpochLastBlockNumber returns the last block number of the given epoch.
 // Note that it also returns the block number for a future epoch.

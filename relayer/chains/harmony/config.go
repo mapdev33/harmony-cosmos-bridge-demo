@@ -6,7 +6,6 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	sdkcommon "github.com/harmony-one/go-sdk/pkg/common"
-	"github.com/harmony-one/harmony/numeric"
 	"github.com/mapdev33/yui-relayer/core"
 )
 
@@ -37,9 +36,9 @@ func (c ChainConfig) ChainID() (*sdkcommon.ChainID, error) {
 	return sdkcommon.StringToChainID(c.ChainId)
 }
 
-func (c ChainConfig) GasPriceDec() numeric.Dec {
-	return numeric.NewDec(c.GasPrice)
-}
+//func (c ChainConfig) GasPriceDec() numeric.Dec {
+//	return numeric.NewDec(c.GasPrice)
+//}
 
 func (c ProverConfig) Build(chain core.ChainI) (core.ProverI, error) {
 	mapChain, ok := chain.(*Chain)

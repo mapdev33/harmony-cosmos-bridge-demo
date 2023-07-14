@@ -14,10 +14,10 @@ import (
 	conntypes "github.com/cosmos/ibc-go/modules/core/03-connection/types"
 	chantypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
+	"github.com/ethereum/go-ethereum/accounts"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	harmonytypes "github.com/ethereum/go-ethereum/core/types"
 	proto "github.com/gogo/protobuf/proto"
-	"github.com/harmony-one/harmony/accounts"
-	"github.com/harmony-one/harmony/accounts/abi"
-	harmonytypes "github.com/harmony-one/harmony/core/types"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
 )
 

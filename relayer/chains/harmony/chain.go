@@ -17,10 +17,10 @@ import (
 	committypes "github.com/cosmos/ibc-go/modules/core/23-commitment/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
 	ibcexported "github.com/cosmos/ibc-go/modules/core/exported"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/crypto"
 	sdkcommon "github.com/harmony-one/go-sdk/pkg/common"
-	"github.com/harmony-one/harmony/accounts/abi"
-	"github.com/harmony-one/harmony/accounts/keystore"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ics20bank"
@@ -35,6 +35,9 @@ const (
 
 	methodHostGetConsensusState = "getConsensusState"
 	methodHostGetClientState    = "getClientState"
+
+	ScryptN = keystore.StandardScryptN
+	ScryptP = keystore.StandardScryptP
 )
 
 type Chain struct {
@@ -135,12 +138,16 @@ func NewChain(config ChainConfig) (*Chain, error) {
 	}, nil
 }
 
+func KeyStoreForPath(p string) *keystore.KeyStore {
+	return keystore.NewKeyStore(p, ScryptN, ScryptP)
+}
+
 // Init ...
 func (c *Chain) Init(homePath string, timeout time.Duration, codec codec.ProtoCodecMarshaler, debug bool) error {
 	c.homePath = homePath
 	c.codec = codec
 
-	keyStore := sdkcommon.KeyStoreForPath(filepath.Join(homePath, keyStoreName))
+	keyStore := KeyStoreForPath(filepath.Join(homePath, keyStoreName))
 	key, err := crypto.HexToECDSA(c.config.PrivateKey)
 	if err != nil {
 		return err
