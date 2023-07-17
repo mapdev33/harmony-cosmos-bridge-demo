@@ -7,7 +7,6 @@ require (
 	github.com/cosmos/cosmos-sdk v0.43.0-beta1
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/ibc-go v1.0.0-beta1
-	github.com/datachainlab/ibc-harmony-client v0.0.0-20220627020344-c0def938d048
 	github.com/ethereum/go-ethereum v1.10.10
 	github.com/gogo/protobuf v1.3.3
 	github.com/harmony-one/go-sdk v1.2.8
@@ -29,4 +28,5 @@ replace (
 	github.com/cosmos/ibc-go => github.com/datachainlab/ibc-go v0.0.0-20220628103507-edfd6cd100c3
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.4
 	github.com/harmony-one/go-sdk => github.com/datachainlab/go-sdk v1.2.9-0.20220106070458-8ce5f5c807b2
+	github.com/hyperledger-labs/yui-ibc-solidity => github.com/neoiss/yui-ibc-solidity v0.0.0-20230717092519-3cec592602a5
 )

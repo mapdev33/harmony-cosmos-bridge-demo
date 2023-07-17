@@ -4,13 +4,13 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
 	"github.com/cosmos/ibc-go/modules/light-clients/07-tendermint/types"
-	hmylctypes "github.com/datachainlab/ibc-harmony-client/modules/light-clients/harmony/types"
 	"github.com/mapdev33/yui-relayer/core"
+	mapolctypes "github.com/mapprotocol/map-light-client/modules/light-clients/map/types"
 )
 
 // RegisterInterfaces register the module interfaces to protobuf Any.
 func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
-	hmylctypes.RegisterInterfaces(registry)
+	mapolctypes.RegisterInterfaces(registry)
 
 	registry.RegisterImplementations(
 		(*core.ChainConfigI)(nil),
