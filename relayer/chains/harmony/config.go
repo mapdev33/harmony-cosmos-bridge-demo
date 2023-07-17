@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	sdkcommon "github.com/harmony-one/go-sdk/pkg/common"
 	"github.com/mapdev33/yui-relayer/core"
 )
 
@@ -32,9 +31,9 @@ func (c ChainConfig) ICS20BankAddress() common.Address {
 	return common.HexToAddress(c.Ics20BankAddress)
 }
 
-func (c ChainConfig) ChainID() (*sdkcommon.ChainID, error) {
-	return sdkcommon.StringToChainID(c.ChainId)
-}
+//func (c ChainConfig) ChainID() (*sdkcommon.ChainID, error) {
+//	return sdkcommon.StringToChainID(c.ChainId)
+//}
 
 //func (c ChainConfig) GasPriceDec() numeric.Dec {
 //	return numeric.NewDec(c.GasPrice)

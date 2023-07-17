@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony/rpc"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rlp"
-	eth "github.com/harmony-one/go-sdk/pkg/rpc/eth"
 )
 
 const AccountStorageRootIndex = 2
@@ -60,7 +60,7 @@ func (cl Client) getProof(address common.Address, storageKeys [][]byte, blockNum
 		hashes = append(hashes, h)
 	}
 	fmt.Printf("============================== getProof params, address: %v, hashes: %v, blockNumber: %v\n", address, hashes, blockNumber)
-	rep, err := cl.messenger.SendRPC(eth.Method.GetProof, []interface{}{
+	rep, err := cl.messenger.SendRPC(rpc.MethodGetProof, []interface{}{
 		address, hashes, blockNumber,
 	})
 	if err != nil {

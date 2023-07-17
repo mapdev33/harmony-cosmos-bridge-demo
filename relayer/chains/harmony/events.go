@@ -2,7 +2,6 @@ package harmony
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"math/big"
 	"strings"
@@ -12,9 +11,6 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	v1 "github.com/harmony-one/go-sdk/pkg/rpc/v1"
-
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
 )
@@ -253,39 +249,14 @@ func (chain *Chain) getAllAcknowledgements(
 }
 
 func (chain *Chain) findLogsData(ctx context.Context, q ethereum.FilterQuery) ([][]byte, error) {
-	arg, err := toFilterArg(q)
+	logs, err := chain.warpedETHClient.client.FilterLogs(ctx, q)
 	if err != nil {
 		return nil, err
 	}
-	rep, err := chain.client.messenger.SendRPC(v1.Method.GetPastLogs, []interface{}{arg})
-	if err != nil {
-		return nil, err
-	}
-	result, ok := rep["result"]
-	if !ok {
-		return nil, errors.New("invalid request")
-	}
 
-	rs, ok := result.([]interface{})
-	if !ok {
-		return nil, errors.New("can't convert result to slice")
-	}
-
-	data := make([][]byte, len(rs))
-	for i, r := range rs {
-		resmap, ok := r.(map[string]interface{})
-		if !ok {
-			return nil, errors.New("can't convert to map")
-		}
-		dataStr, ok := resmap["data"].(string)
-		if !ok {
-			return nil, errors.New("can't convert data")
-		}
-		bz, err := hexutil.Decode(dataStr)
-		if err != nil {
-			return nil, err
-		}
-		data[i] = bz
+	data := make([][]byte, len(logs))
+	for i, l := range logs {
+		data[i] = l.Data
 	}
 	return data, nil
 }

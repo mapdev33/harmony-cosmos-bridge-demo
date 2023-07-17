@@ -20,7 +20,6 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/crypto"
-	sdkcommon "github.com/harmony-one/go-sdk/pkg/common"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ics20bank"
@@ -41,8 +40,8 @@ const (
 )
 
 type Chain struct {
-	config  ChainConfig
-	chainId *sdkcommon.ChainID
+	config ChainConfig
+	//chainId *sdkcommon.ChainID
 
 	pathEnd  *core.PathEnd
 	homePath string
@@ -69,11 +68,11 @@ type Chain struct {
 var _ core.ChainI = (*Chain)(nil)
 
 func NewChain(config ChainConfig) (*Chain, error) {
-	client := NewHarmonyClient(config.RpcAddr)
-	chainId, err := config.ChainID()
-	if err != nil {
-		return nil, err
-	}
+	client := NewClient(config.RpcAddr)
+	//chainId, err := config.ChainID()
+	//if err != nil {
+	//	return nil, err
+	//}
 	ethClient, err := NewETHClient(config.RpcAddr)
 	if err != nil {
 		return nil, err
@@ -121,8 +120,8 @@ func NewChain(config ChainConfig) (*Chain, error) {
 	}
 
 	return &Chain{
-		config:               config,
-		chainId:              chainId,
+		config: config,
+		//chainId:              chainId,
 		client:               client,
 		warpedETHClient:      NewWarpedETHClient(ethClient),
 		ibcHost:              ibcHost,
@@ -169,7 +168,7 @@ func (c *Chain) ChainID() string {
 
 // GetLatestHeight gets the chain for the latest height and returns it
 func (c *Chain) GetLatestHeight() (int64, error) {
-	bn, err := c.client.BlockNumber(context.TODO())
+	bn, err := c.warpedETHClient.client.BlockNumber(context.TODO())
 	if err != nil {
 		return 0, err
 	}

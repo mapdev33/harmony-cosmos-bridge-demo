@@ -3,8 +3,6 @@ package harmony
 import (
 	"context"
 	"crypto/ecdsa"
-	"errors"
-	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -12,12 +10,11 @@ import (
 	"math/big"
 	"time"
 
+	sdkrpc "github.com/mapdev33/harmony-cosmos-bridge-demo/relayer/chains/harmony/rpc"
+
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rpc"
-	sdkrpc "github.com/harmony-one/go-sdk/pkg/rpc"
-	v1 "github.com/harmony-one/go-sdk/pkg/rpc/v1"
 	maptypes "github.com/mapprotocol/atlas/core/types"
 	"github.com/mapprotocol/compass/pkg/ethclient"
 )
@@ -35,7 +32,7 @@ type Client struct {
 	messenger *sdkrpc.HTTPMessenger
 }
 
-func NewHarmonyClient(endpoint string) *Client {
+func NewClient(endpoint string) *Client {
 	messenger := sdkrpc.NewHTTPHandler(endpoint)
 	return &Client{
 		messenger: messenger,
@@ -61,19 +58,19 @@ func NewETHClient(endpoint string) (*ethclient.Client, error) {
 }
 
 // BlockNumber returns the most recent block number
-func (c *Client) BlockNumber(ctx context.Context) (uint64, error) {
-	invalidRes := uint64(0)
-
-	val, err := c.sendRPC(v1.Method.BlockNumber, nil)
-	if err != nil {
-		return invalidRes, err
-	}
-	bns, ok := val.(string)
-	if !ok {
-		return invalidRes, errors.New("could not get the latest block number")
-	}
-	return hexutil.DecodeUint64(bns)
-}
+//func (c *Client) BlockNumber(ctx context.Context) (uint64, error) {
+//	invalidRes := uint64(0)
+//
+//	val, err := c.sendRPC(v1.Method.BlockNumber, nil)
+//	if err != nil {
+//		return invalidRes, err
+//	}
+//	bns, ok := val.(string)
+//	if !ok {
+//		return invalidRes, errors.New("could not get the latest block number")
+//	}
+//	return hexutil.DecodeUint64(bns)
+//}
 
 // FullHeader returns the harmony full header for the given height.
 // The complete header can be used to calculate the hash value.
@@ -102,18 +99,18 @@ func (c *Client) BlockNumber(ctx context.Context) (uint64, error) {
 
 // EpochLastBlockNumber returns the last block number of the given epoch.
 // Note that it also returns the block number for a future epoch.
-func (c *Client) EpochLastBlockNumber(ctx context.Context, epoch uint64) (uint64, error) {
-	val, err := c.sendRPC(MethodEpochLastBlock, []interface{}{epoch})
-	if err != nil {
-		return 0, err
-	}
-	num, ok := val.(float64)
-	if !ok {
-		return 0, errors.New("could not get the last block of epoch")
-	}
-	bn, _ := big.NewFloat(num).Int(nil)
-	return bn.Uint64(), nil
-}
+//func (c *Client) EpochLastBlockNumber(ctx context.Context, epoch uint64) (uint64, error) {
+//	val, err := c.sendRPC(MethodEpochLastBlock, []interface{}{epoch})
+//	if err != nil {
+//		return 0, err
+//	}
+//	num, ok := val.(float64)
+//	if !ok {
+//		return 0, errors.New("could not get the last block of epoch")
+//	}
+//	bn, _ := big.NewFloat(num).Int(nil)
+//	return bn.Uint64(), nil
+//}
 
 // if height <= 0, get the latest result
 func (chain *Chain) CallOpts(ctx context.Context, height int64) *bind.CallOpts {
@@ -133,17 +130,17 @@ func (chain *Chain) CallOpts(ctx context.Context, height int64) *bind.CallOpts {
 	return opts
 }
 
-func (c *Client) sendRPC(meth string, params []interface{}) (interface{}, error) {
-	rep, err := c.messenger.SendRPC(meth, params)
-	if err != nil {
-		return nil, fmt.Errorf("rpc %s with params %v failed: %w", meth, params, err)
-	}
-	val, ok := rep["result"]
-	if !ok {
-		return nil, fmt.Errorf("rpc %s with params %v returns invalid response", meth, params)
-	}
-	return val, nil
-}
+//func (c *Client) sendRPC(meth string, params []interface{}) (interface{}, error) {
+//	rep, err := c.messenger.SendRPC(meth, params)
+//	if err != nil {
+//		return nil, fmt.Errorf("rpc %s with params %v failed: %w", meth, params, err)
+//	}
+//	val, ok := rep["result"]
+//	if !ok {
+//		return nil, fmt.Errorf("rpc %s with params %v returns invalid response", meth, params)
+//	}
+//	return val, nil
+//}
 
 func (wc *WarpedETHClient) BlockNumber() (uint64, error) {
 	return wc.client.BlockNumber(context.Background())

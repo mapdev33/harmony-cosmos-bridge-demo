@@ -9,18 +9,19 @@ require (
 	github.com/cosmos/ibc-go v1.0.0-beta1
 	github.com/ethereum/go-ethereum v1.10.10
 	github.com/gogo/protobuf v1.3.3
-	github.com/harmony-one/go-sdk v1.2.8
 	// use go bindings with geth v1.9.10, which works with solidity 6.0+
 	github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce
+	github.com/klauspost/cpuid v1.2.1 // indirect
 	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
 	github.com/mapprotocol/atlas v1.1.5
 	github.com/mapprotocol/compass v1.0.0
 	github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e
+	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
 	github.com/tendermint/tendermint v0.34.10
 	github.com/tendermint/tm-db v0.6.4
-	github.com/valyala/fasthttp v1.4.0 // indirect
+	github.com/valyala/fasthttp v1.4.0
 )
 
 replace (
