@@ -1,52 +1,23 @@
-FROM golang:1.16
+# Build atlas in a stock Go builder container
+FROM golang:1.18 as builder
 
-ENV API_ENDPOINT=
-# ex: v4.3.4
-ARG HARMONY_TAG
-ARG BLS_TAG
+#ARG MAP_TAG
 
-WORKDIR $GOPATH/src/github.com/harmony-one
+RUN apt install make gcc git
 
-SHELL ["/bin/bash", "-c"]
+RUN cd /root && git clone https://github.com/neoiss/atlas.git -b update-max-code-size --depth 1
 
-RUN apt update && apt upgrade -y && apt update -y && apt install unzip \
-libgmp-dev libssl-dev curl git jq make gcc g++ bash sudo python3 python3-pip -y
+WORKDIR /root/atlas
 
-RUN git clone https://github.com/harmony-one/harmony.git -b ${HARMONY_TAG} --depth 1 \
-    && git clone https://github.com/harmony-one/bls.git -b ${BLS_TAG} --depth 1 \
-    && git clone https://github.com/harmony-one/mcl.git --depth 1
+RUN make atlas
 
-# TODO
-# Currently, TendermintLightClient exceeds MaxCodeSize
-RUN cd harmony && \
-    sed -i 's/24576/61440/' internal/params/protocol_params.go
+# Pull atlas into a second stage deploy ubuntu container
+FROM ubuntu:latest
 
-# Build to fetch all dependencies for faster test builds
-RUN cd harmony && go mod tidy && go get github.com/pborman/uuid && go get github.com/rjeczalik/notify \
-    && go get github.com/cespare/cp && go get github.com/libp2p/go-libp2p-crypto && go get github.com/kr/pretty \
-    && go get github.com/kr/text && go get gopkg.in/check.v1 && bash scripts/install_build_tools.sh && make \
-    && make clean
+RUN apt update && apt install -y curl
 
-# Install testing tools
-RUN curl -L -o /go/bin/hmy https://harmony.one/hmycli \
-    && chmod +x /go/bin/hmy \
-    # Setup hmy with default accounts
-    # Main funding account
-    && /go/bin/hmy keys import-private-key 144109d9b1182b51233955c112f64a545bb70143539f161e936bb01f8b1e081d
+COPY --from=builder /root/atlas/build/bin/atlas /usr/local/bin/
+RUN chmod +x /usr/local/bin/atlas
 
-# comment out until used
-#WORKDIR $GOPATH/src/github.com/coinbase
-#
-#RUN git clone https://github.com/coinbase/rosetta-cli.git
-#RUN cd rosetta-cli && make install
-
-WORKDIR $GOPATH/src/github.com/harmony-one/harmony-test/localnet
-
-
-COPY scripts scripts
-COPY configs configs
-
-RUN chmod +x $GOPATH/src/github.com/harmony-one/harmony-test/localnet/scripts/run-localnet.sh
-WORKDIR $GOPATH/src/github.com/harmony-one/harmony
-COPY hmyscripts/kill_node.sh ./test/
-ENTRYPOINT ["/go/src/github.com/harmony-one/harmony-test/localnet/scripts/run-localnet.sh"]
+EXPOSE 7445
+ENTRYPOINT ["atlas", "--datadir", "/root/atlas/datadir", "--http", "--http.corsdomain", "*", "--http.vhosts", "*", "--single"]

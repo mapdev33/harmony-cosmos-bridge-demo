@@ -3,8 +3,7 @@ include ../../docker.mk
 .PHONY: network
 network:
 	make network-tendermint
-	make network-harmony
-	make wait-for-launch ATTEMPT=30 CONTAINER=harmony-chain
+	#make wait-for-launch ATTEMPT=30 CONTAINER=harmony-chain
 
 .PHONY: network-tendermint
 network-tendermint:

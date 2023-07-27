@@ -1,23 +1,20 @@
 version: '3.5'
 networks:
-  harmony-scaffold:
-    name: &network-common harmony-scaffold
+  map-scaffold:
+    name: &network-common map-scaffold
 
 services:
-  harmony-scaffold:
-    container_name: harmony-scaffold
+  map-scaffold:
+    image: map-scaffold-image
+    container_name: map-scaffold
     build:
       context: ./docker
-      args:
-        - HARMONY_TAG
-        - BLS_TAG
     environment:
       API_ENDPOINT: http://localhost:9598
     ports:
-      - 9596:9596
-      - 9598:9598
+      - "7445:7445"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9598"]
+      test: [ "CMD", "curl", "-X POST", '{"jsonrpc": "2.0", "id": 1, "method": "net_version"}', "http://localhost:7445" ]
       start_period: 10s
       interval: 10s
       timeout: 3s

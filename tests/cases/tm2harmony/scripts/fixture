@@ -20,14 +20,14 @@ mkdir -p ${FIXTURES_DIR}/harmony/contracts
 
 # retrieve the mnemonic and files with contract address from the container to the local
 #${DOCKER} cp harmony-chain:/root/mnemonic ${FIXTURES_DIR}/harmony/
-${DOCKER} cp harmony-chain:/root/contracts ${FIXTURES_DIR}/harmony/
+#${DOCKER} cp harmony-chain:/root/contracts ${FIXTURES_DIR}/harmony/
 
 ## generate a json file for Relayer configuration from a template file
-IBCHostAddress=$(cat ${FIXTURES_DIR}/harmony/contracts/IBCHost)
-IBCHandlerAddress=$(cat ${FIXTURES_DIR}/harmony/contracts/IBCHandler)
-SimpleTokenAddress=$(cat ${FIXTURES_DIR}/harmony/contracts/SimpleToken)
-ICS20BankAddress=$(cat ${FIXTURES_DIR}/harmony/contracts/ICS20Bank)
-ICS20TransferBankAddress=$(cat ${FIXTURES_DIR}/harmony/contracts/ICS20TransferBank)
+IBCHostAddress=$(cat ../../../tests/chains/harmony/output/addresses/IBCHost)
+IBCHandlerAddress=$(cat ../../../tests/chains/harmony/output/addresses/IBCHandler)
+SimpleTokenAddress=$(cat ../../../tests/chains/harmony/output/addresses/SimpleToken)
+ICS20BankAddress=$(cat ../../../tests/chains/harmony/output/addresses/ICS20Bank)
+ICS20TransferBankAddress=$(cat ../../../tests/chains/harmony/output/addresses/ICS20TransferBank)
 
 sed -e "s/\"ibc_host_address\": \"\"/\"ibc_host_address\": \"${IBCHostAddress}\"/" \
     -e "s/\"ibc_handler_address\": \"\"/\"ibc_handler_address\": \"${IBCHandlerAddress}\"/" \

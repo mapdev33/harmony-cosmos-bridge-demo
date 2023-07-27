@@ -1,8 +1,13 @@
 include ../../docker.mk
 
-HARMONY_TAG?=v4.3.4
-BLS_TAG?=v0.0.6
-NETWORK_ID?=2
+#DOCKER         ?= docker
+#DOCKER_COMPOSE ?= docker-compose
+#DOCKER_REPO    ?= ""
+#DOCKER_TAG     ?= latest
+#DOCKER_BUILD   ?= $(DOCKER) build --rm --no-cache --pull
+
+MAP_TAG?=update-max-code-size
+NETWORK_ID?=214
 
 # To check shard endpoints and restart Harmony network if necessary
 RETRY ?= 5
@@ -21,25 +26,19 @@ docker-image:
 
 .PHONY: deploy-contract
 deploy-contract:
-	make wait-for-launch ATTEMPT=30 CONTAINER=harmony-scaffold
-	cd ${CONTRACT_DIR} && npm run migrate
+	cd ${CONTRACT_DIR} && npm install && npm run migrate
 
 .PHONY: up-scaffold-with-check
 # This starts harmony local network with verifying that
 # each explorer node exists in the shard specified in config.
 # If the verification fails, it restarts the network.
 up-scaffold-with-check:
-	@for i in $(shell seq ${RETRY}); do \
-		make up-scaffold ; \
-		make wait-for-launch ATTEMPT=30 CONTAINER=harmony-scaffold ; \
-		./scripts/check_shard.sh && break ; \
-		make down-scaffold ; \
-	done
+	make up-scaffold ; \
+	make wait-for-launch ATTEMPT=30 CONTAINER=map-scaffold ; \
 
 .PHONY: up-scaffold
 up-scaffold:
-	${DOCKER_COMPOSE} build --build-arg HARMONY_TAG=${HARMONY_TAG} --build-arg BLS_TAG=${BLS_TAG} && \
-		${DOCKER_COMPOSE} up -d
+	${DOCKER_COMPOSE} up --build -d
 
 .PHONY: down-scaffold
 down-scaffold:
@@ -52,4 +51,4 @@ save-contract-address:
 
 .PHONY: docker-commit
 docker-commit:
-	${SCRIPT_DIR}/commitImage.sh  ${DOCKER_REPO} ${DOCKER_TAG} harmony-chain harmony-scaffold ${OUTPUT_ADDRESS_DIR}
+	${SCRIPT_DIR}/commitImage.sh  ${DOCKER_REPO} ${DOCKER_TAG} map-chain map-scaffold ${OUTPUT_ADDRESS_DIR}
