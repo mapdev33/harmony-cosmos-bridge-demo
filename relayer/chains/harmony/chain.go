@@ -238,6 +238,7 @@ func (c *Chain) QueryClientConsensusState(height int64, dstClientConsHeight ibce
 func (c *Chain) QueryClientState(height int64) (*clienttypes.QueryClientStateResponse, error) {
 	s, found, err := c.ibcHost.GetClientState(c.CallOpts(context.Background(), height), c.pathEnd.ClientID)
 	if err != nil {
+		fmt.Println("============================== QueryClientState err 1 :", err)
 		return nil, err
 	} else if !found {
 		debug.PrintStack()
@@ -245,10 +246,12 @@ func (c *Chain) QueryClientState(height int64) (*clienttypes.QueryClientStateRes
 	}
 	var clientState exported.ClientState
 	if err := c.Codec().UnmarshalInterface(s, &clientState); err != nil {
+		fmt.Println("============================== QueryClientState err 2 :", err)
 		return nil, err
 	}
 	any, err := clienttypes.PackClientState(clientState)
 	if err != nil {
+		fmt.Println("============================== QueryClientState err 3 :", err)
 		return nil, err
 	}
 	return clienttypes.NewQueryClientStateResponse(any, nil, clienttypes.NewHeight(0, uint64(height))), nil
@@ -272,6 +275,7 @@ var emptyConnRes = conntypes.NewQueryConnectionResponse(
 
 // QueryConnection returns the remote end of a given connection
 func (c *Chain) QueryConnection(height int64) (*conntypes.QueryConnectionResponse, error) {
+	fmt.Printf("============================== QueryConnection:  height: %d, connectionID: %s\n", height, c.pathEnd.ConnectionID)
 	conn, found, err := c.ibcHost.GetConnection(c.CallOpts(context.Background(), height), c.pathEnd.ConnectionID)
 	if err != nil {
 		return nil, err

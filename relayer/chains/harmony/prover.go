@@ -69,9 +69,17 @@ func (pr *Prover) CreateMsgCreateClient(clientID string, dstHeader core.HeaderI,
 		ClientIdentifier: "map-client-identifier",
 	}
 	consensusState := &maplctypes.ConsensusState{
-		Epoch:          epoch,
-		Validators:     nil, // todo
-		CommitmentRoot: nil, // todo
+		Epoch: epoch,
+		Validators: &maplctypes.ValidatorSet{
+			PairKeys: []*maplctypes.PairKey{
+				{
+					Address:  "0x90E9d4EA1285334082515aeE10278F34AE40B01A",
+					G2PubKey: common.Hex2Bytes("14f821e131ea6c273607d704a4458408776354c2451ede5ba2c1e5195ec3929a109cc2d5a9487bf1a0a7b498678da54284509df5a2f74e03f8965707273dc4c70a6f29acb7b49f2e9f629c410a0923b516d23f3858611c500304a8f5c80454140ab032a87cf62167d7f16b05d7ad644a3862d1b9bb08e3baa9c39798ba1f0efa"),
+				},
+			},
+			Weights: []uint64{1},
+		}, // todo
+		CommitmentRoot: []byte{1}, // todo
 		Timestamp:      time.Unix(int64(h.Timestamp), 0),
 	}
 
@@ -84,18 +92,19 @@ func (pr *Prover) CreateMsgCreateClient(clientID string, dstHeader core.HeaderI,
 
 // SetupHeader creates a new header based on a given header
 func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, baseSrcHeader core.HeaderI) (core.HeaderI, error) {
-	fmt.Println("============================== map SetupHeader")
+	fmt.Println("============================== map SetupHeader begin")
 	header, ok := baseSrcHeader.(*maplctypes.Header)
 	if !ok {
 		return nil, errors.New("invalid header type")
 	}
 	fmt.Printf("============================== header: %+v\n", header)
+	fmt.Println("============================== map SetupHeader end")
 	return header, nil
 }
 
 // UpdateLightWithHeader updates a header on the light client and returns the header and height corresponding to the chain
 func (pr *Prover) UpdateLightWithHeader() (header core.HeaderI, provableHeight int64, queryableHeight int64, err error) {
-	fmt.Println("============================== map SetupHeader")
+	fmt.Println("============================== map UpdateLightWithHeader begin")
 	h, err := pr.QueryLatestHeader()
 	if err != nil {
 		return nil, -1, -1, err
@@ -104,6 +113,7 @@ func (pr *Prover) UpdateLightWithHeader() (header core.HeaderI, provableHeight i
 	if err != nil {
 		return nil, -1, -1, err
 	}
+	fmt.Println("============================== map UpdateLightWithHeader end")
 	return h, height, height, nil
 }
 
@@ -245,7 +255,7 @@ func (pr *Prover) queryLatestHeader() (out core.HeaderI, err error) {
 
 	header := &maplctypes.Header{
 		SignedHeader:   convertHeader(h),
-		CommitmentRoot: nil,
+		CommitmentRoot: []byte{1},
 		Identifier:     "identifier",
 	}
 	return header, nil

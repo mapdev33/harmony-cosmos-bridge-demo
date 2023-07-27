@@ -2,6 +2,7 @@ package harmony
 
 import (
 	"context"
+	"fmt"
 	"github.com/ethereum/go-ethereum/crypto"
 	"log"
 	"math/big"
@@ -57,6 +58,7 @@ func (c *Chain) txIcs20TransferBank(method string, params ...interface{}) (*harm
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("============================== sender: ", account.Address)
 	txHash, err := c.warpedETHClient.SendTransaction(account.Address, common.HexToAddress(c.config.Ics20TransferBankAddress), big.NewInt(0), privateKey, input, c.config.GasLimit)
 	if err != nil {
 		return nil, err

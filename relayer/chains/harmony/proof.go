@@ -73,7 +73,7 @@ func (cl Client) getProof(address common.Address, storageKeys [][]byte, blockNum
 	return json.Marshal(val)
 }
 
-func (wc WarpedETHClient) getProof(address common.Address, storageKeys [][]byte, blockNumber string) ([]byte, error) {
+func (wc *WarpedETHClient) getProof(address common.Address, storageKeys [][]byte, blockNumber string) ([]byte, error) {
 	hashes := []common.Hash{}
 	for _, k := range storageKeys {
 		var h common.Hash

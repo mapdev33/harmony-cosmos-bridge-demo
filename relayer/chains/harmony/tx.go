@@ -66,8 +66,14 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 		case *chantypes.MsgRecvPacket:
 			_, err = c.TxRecvPacket(msg)
 		case *chantypes.MsgAcknowledgement:
+			fmt.Println("============================== TxAcknowledgement")
+			fmt.Println("============================== ack length: ", len(msg.Acknowledgement))
 			_, err = c.TxAcknowledgement(msg)
+			fmt.Printf("============================== TxAcknowledgement msg: %+v\n ", msg)
+			fmt.Println("============================== TxAcknowledgement proof: ", msg.ProofAcked)
+			fmt.Println("============================== TxAcknowledgement err: ", err)
 		case *transfertypes.MsgTransfer:
+			fmt.Println("============================== transfer")
 			_, err = c.TxMsgTransfer(msg)
 
 		default:
@@ -277,7 +283,7 @@ func (c *Chain) TxAcknowledgement(msg *chantypes.MsgAcknowledgement) (*harmonyty
 			TimeoutHeight:      ibchandler.HeightData(msg.Packet.TimeoutHeight),
 			TimeoutTimestamp:   msg.Packet.TimeoutTimestamp,
 		},
-		Acknowledgement: msg.Acknowledgement,
+		Acknowledgement: msg.Acknowledgement[:1],
 		Proof:           msg.ProofAcked,
 		ProofHeight:     ibchandler.HeightData(msg.ProofHeight),
 	})
@@ -289,6 +295,7 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 		log.Println("abi.Pack error")
 		return nil, err
 	}
+	fmt.Printf("============================== %s input: %s\n", method, common.Bytes2Hex(input))
 	account, err := c.getAccount()
 	if err != nil {
 		return nil, err
@@ -318,7 +325,7 @@ func (c *Chain) txIbcHandler(method string, params ...interface{}) (*harmonytype
 	}
 
 	txHashLen := len(txHash.Hex())
-	fmt.Println("--------send recvPacket ---------", "to address", c.config.IbcHandlerAddress, "txhash", txHash.Hex(), txHashLen)
+	fmt.Println("--------txIbcHandler ---------", "from address", account.Address, "to address", c.config.IbcHandlerAddress, "txhash", txHash.Hex(), txHashLen)
 	if err = c.keyStore.Lock(account.Address); err != nil {
 		panic(err)
 	}
