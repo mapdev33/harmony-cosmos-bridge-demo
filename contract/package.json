@@ -6,22 +6,30 @@
     "node": "16.x"
   },
   "dependencies": {
-    "@mapdev33/yui-ibc-solidity": "git+https://github.com/mapdev33/yui-ibc-solidity.git",
-    "@datachainlab/tendermint-sol": "git+https://github.com/datachainlab/tendermint-sol.git#4423b99b2b3683cf05161e4e323dd7b48ee65d91"
+    "@neoiss/yui-ibc-solidity": "git+https://github.com/neoiss/yui-ibc-solidity.git#ff146b8dd90e686900d58131f8b81ea96818fee4",
+    "@neoiss/tendermint-sol": "git+https://github.com/neoiss/tendermint-sol.git#7378e4709d4485667b578b763fea4e3dd8f406c8"
   },
   "devDependencies": {
     "truffle": "^5.4.3",
     "truffle-contract-size": "^2.0.1",
     "@harmony-js/core": "^0.1.57",
-    "tslib": "^1.11.1"
+    "tslib": "^1.11.1",
+    "cpx": "^1.5.0",
+    "npm-run-all": "^4.1.5"
   },
   "scripts": {
     "compile": "truffle compile",
-    "migrate": "npm run migrate-local-shard0 && npm run migrate-local-shard1",
-    "migrate-local-shard0": "truffle migrate --reset --skip-dry-run --network local_shard_0",
-    "migrate-local-shard1": "truffle migrate --reset --skip-dry-run --network local_shard_1",
+    "compile:ibc": "cd node_modules/@neoiss/yui-ibc-solidity && truffle compile",
+    "compile:light": "cd node_modules/@neoiss/tendermint-sol && truffle compile",
+    "copy:ibc": "cpx \"node_modules/@neoiss/yui-ibc-solidity/build/contracts/*.json\" build/contracts -v",
+    "copy:light": "cpx \"node_modules/@neoiss/tendermint-sol/build/contracts/*.json\" build/contracts -v",
+    "migrate": "npm run migrate-map-local",
+    "migrate-map-local": "truffle migrate --reset --network=map_local",
+    "postinstall": "run-s compile:ibc copy:ibc compile:light copy:light",
+    "contract-size": "cd node_modules/@neoiss/tendermint-sol && truffle run contract-size",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"
 }
+

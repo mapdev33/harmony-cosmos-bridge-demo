@@ -1,43 +1,12 @@
-const { TruffleProvider } = require('@harmony-js/core')
-//Local
-const local_private_key = process.env.HARMONY_LOCAL_PRIVATE_KEY
-const local_0_url = process.env.HARMONY_LOCAL_SHARD_0_URL
-const local_1_url = process.env.HARMONY_LOCAL_SHARD_1_URL
-
-//GAS - Currently using same GAS accross all environments
-const gasLimit = process.env.HARMONY_GAS_LIMIT
-const gasPrice = process.env.HARMONY_GAS_PRICE
-
 module.exports = {
   networks: {
-    local_shard_0: {
-      network_id: '2',
-      provider: () => {
-        const truffleProvider = new TruffleProvider(
-          local_0_url,
-          {},
-          { shardID: 0, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(local_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
-      },
-    },
-    local_shard_1: {
-      network_id: '2',
-      provider: () => {
-        const truffleProvider = new TruffleProvider(
-          local_1_url,
-          {},
-          { shardID: 1, chainId: 2 },
-          { gasLimit: gasLimit, gasPrice: gasPrice},
-        );
-        const newAcc = truffleProvider.addByPrivateKey(local_private_key);
-        truffleProvider.setSigner(newAcc);
-        return truffleProvider;
-      },
-    },
+    map_local : {
+        host: "127.0.0.1",
+        port: 7445,
+        network_id: '214',
+        accounts: ["1f84c95ac16e6a50f08d44c7bde7aff8742212fda6e4321fde48bf83bef266dc"],
+        gasLimit: 10000000000
+    }
   },
 
   // Set default mocha options here, use special reporters etc.
