@@ -15,7 +15,7 @@ require (
 	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
 	github.com/mapprotocol/atlas v1.1.5
 	github.com/mapprotocol/compass v1.0.0
-	github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e
+	github.com/mapprotocol/map-light-client v0.0.0-20230718023245-0712ad306bee
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1

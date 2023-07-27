@@ -116,6 +116,7 @@ func (pr *Prover) CreateMsgCreateClient(clientID string, dstHeader core.HeaderI,
 
 // SetupHeader creates a new header based on a given header
 func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, srcHeader core.HeaderI) (core.HeaderI, error) {
+	fmt.Println("============================== tendermint SetupHeader begin")
 	srcChain := pr.chain
 	// make copy of header stored in mop
 	tmp := srcHeader.(*types.TmHeader)
@@ -123,17 +124,21 @@ func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, srcHeader c
 
 	dsth, err := dstChain.GetLatestLightHeight()
 	if err != nil {
+		fmt.Println("============================== err 1 :", err)
 		return nil, err
 	}
 
 	// retrieve counterparty client from dst chain
 	counterpartyClientRes, err := dstChain.QueryClientState(dsth)
 	if err != nil {
+		fmt.Println("============================== dst chainID :", dstChain.GetChainID())
+		fmt.Println("============================== err 2 :", err)
 		return nil, err
 	}
 
 	var cs exported.ClientState
 	if err := srcChain.codec.UnpackAny(counterpartyClientRes.ClientState, &cs); err != nil {
+		fmt.Println("============================== err 3 :", err)
 		return nil, err
 	}
 
@@ -145,11 +150,13 @@ func (pr *Prover) SetupHeader(dstChain core.LightClientIBCQueryierI, srcHeader c
 	// query TrustedValidators at Trusted Height from srcChain
 	valSet, err := srcChain.QueryValsetAtHeight(trustedHeight)
 	if err != nil {
+		fmt.Println("============================== err 4 :", err)
 		return nil, err
 	}
 
 	// inject TrustedValidators into header
 	h.TrustedValidators = types.NewValidatorSetFromTm(valSet)
+	fmt.Println("============================== tendermint SetupHeader end")
 	return &h, nil
 }
 
@@ -157,6 +164,7 @@ func lightError(err error) error { return fmt.Errorf("light client: %w", err) }
 
 // UpdateLightWithHeader calls client.Update and then .
 func (pr *Prover) UpdateLightWithHeader() (header core.HeaderI, provableHeight int64, queryableHeight int64, err error) {
+	fmt.Println("============================== tendermint UpdateLightWithHeader begin")
 	// create database connection
 	db, df, err := pr.NewLightDB()
 	if err != nil {
@@ -189,6 +197,7 @@ func (pr *Prover) UpdateLightWithHeader() (header core.HeaderI, provableHeight i
 	// NOTE: We query connection at height - 1 because of the way tendermint returns
 	// proofs the commit for height n is contained in the header of height n + 1
 	provableHeight = queryableHeight - 1
+	fmt.Println("============================== tendermint UpdateLightWithHeader end")
 	return h, provableHeight, queryableHeight, nil
 }
 

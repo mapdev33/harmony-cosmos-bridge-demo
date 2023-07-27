@@ -733,8 +733,8 @@ github.com/mapprotocol/atlas v1.1.5 h1:ajawSCYqgq5KbCVSdtcWpzxQcE4POTJF2iqlbrgMY
 github.com/mapprotocol/atlas v1.1.5/go.mod h1:fwNsT7bxVQDTWBcFLRfxYPaeaxl0fddpVHgn2pOPCiE=
 github.com/mapprotocol/compass v1.0.0 h1:ZbJ3a0CtqaWOdFtwIz68CFaK7w+jKNo6ZgnEZB4QGH4=
 github.com/mapprotocol/compass v1.0.0/go.mod h1:fkN9rVehQgNsaNRU8PtPJ2j8yp0wE1sXZE0225KTF60=
-github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e h1:3pFM966ZuHaU0LDG2c+TcikDizaqlGhFiwsao/txsGQ=
-github.com/mapprotocol/map-light-client v0.0.0-20230709063748-04353cbebd8e/go.mod h1:xHZR28bzXN2TMO67urfR5oTd8yH79TbQlw1lm3CDLpA=
+github.com/mapprotocol/map-light-client v0.0.0-20230718023245-0712ad306bee h1:OscOaQ/RhMaEYCn6xiK/alGJ4bY5Ip9Pdv6lttDVgJ0=
+github.com/mapprotocol/map-light-client v0.0.0-20230718023245-0712ad306bee/go.mod h1:xHZR28bzXN2TMO67urfR5oTd8yH79TbQlw1lm3CDLpA=
 github.com/mapprotocol/near-api-go v0.0.0-20220801061430-b9e1d4580dc5/go.mod h1:5UbxScOB/xumHSVu0QDatqT8ccm4n/mHWbX+4OjggKk=
 github.com/matryer/moq v0.0.0-20190312154309-6cfb0558e1bd/go.mod h1:9ELz6aaclSIGnZBoaSLZ3NAl1VTufbOrXBPvtcy6WiQ=
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
