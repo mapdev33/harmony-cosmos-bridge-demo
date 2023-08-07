@@ -19,7 +19,7 @@ require (
 
 replace (
 	github.com/coinbase/rosetta-sdk-go => github.com/coinbase/rosetta-sdk-go v0.5.9
-	github.com/cosmos/ibc-go => github.com/datachainlab/ibc-go v0.0.0-20220628103507-edfd6cd100c3
+	github.com/cosmos/ibc-go => github.com/neoiss/ibc-go v0.0.0-20230807134650-0064f7d25978
 	github.com/ethereum/go-ethereum v1.9.25 => github.com/ethereum/go-ethereum v1.9.9
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.4
 )

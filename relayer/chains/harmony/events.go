@@ -15,6 +15,19 @@ import (
 	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
 )
 
+const EventAcknowledgementLength = 1
+
+// https://github.com/cosmos/ibc/blob/main/spec/app/ics-020-fungible-token-transfer/README.md#data-structures
+const (
+	AcknowledgementResult = 1
+	AcknowledgementError  = 0
+)
+
+var (
+	AcknowledgementResultBytes = []byte{170, 1, 1, 1}
+	AcknowledgementErrorBytes  = []byte{178, 0, 0}
+)
+
 var (
 	parsedHandlerABI abi.ABI
 
@@ -193,7 +206,17 @@ func (chain *Chain) findAcknowledgement(
 		fmt.Printf("============================== findAcknowledgement event: %+v\n", packet)
 		if dstPortID == packet.DestinationPortId && dstChannel == packet.DestinationChannel && sequence == packet.Sequence {
 			fmt.Println("============================== findAcknowledgement got acknowledgement: ", packet.Acknowledgement)
-			return packet.Acknowledgement, nil
+			ackLength := len(packet.Acknowledgement)
+			if ackLength != EventAcknowledgementLength {
+				return nil, fmt.Errorf("invalid acknowledgement, want length: %d, got length: %d ", EventAcknowledgementLength, ackLength)
+			}
+			ack := packet.Acknowledgement[0]
+			if ack == AcknowledgementResult {
+				return AcknowledgementResultBytes, nil
+			} else if ack == AcknowledgementError {
+				return AcknowledgementErrorBytes, nil
+			}
+			return nil, fmt.Errorf("invalid acknowledgement(%d)", ack)
 		}
 	}
 
