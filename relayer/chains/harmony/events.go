@@ -42,6 +42,13 @@ func init() {
 	abiGeneratedChannelIdentifier = parsedHostABI.Events["GeneratedChannelIdentifier"]
 }
 
+type WriteAcknowledgementEvent struct {
+	DestinationPortId  string
+	DestinationChannel string
+	Sequence           uint64
+	Acknowledgement    []byte
+}
+
 func (chain *Chain) findPacket(
 	ctx context.Context,
 	sourcePortID string,
@@ -178,22 +185,15 @@ func (chain *Chain) findAcknowledgement(
 
 	// TODO fix
 	for _, data := range logsData {
-		packetMap := map[string]interface{}{}
-		if err := parsedHandlerABI.UnpackIntoMap(packetMap, abiWriteAcknowledgement.Name, data); err != nil {
+		packet := new(WriteAcknowledgementEvent)
+		if err := parsedHandlerABI.UnpackIntoInterface(packet, abiWriteAcknowledgement.Name, data); err != nil {
+			fmt.Println("============================== Unpack WriteAcknowledgementEvent error: ", err)
 			return nil, err
 		}
-		for _, v := range packetMap {
-			values, ok := v.([]interface{})
-			if !ok {
-				return nil, fmt.Errorf("invalid type: got %T", v)
-			}
-			if len(values) != 4 {
-				return nil, fmt.Errorf("unexpected values: %v", values)
-			}
-			if dstPortID == values[0].(string) && dstChannel == values[1].(string) && sequence == values[2].(uint64) {
-				return values[3].([]byte), nil
-			}
-
+		fmt.Printf("============================== findAcknowledgement event: %+v\n", packet)
+		if dstPortID == packet.DestinationPortId && dstChannel == packet.DestinationChannel && sequence == packet.Sequence {
+			fmt.Println("============================== findAcknowledgement got acknowledgement: ", packet.Acknowledgement)
+			return packet.Acknowledgement, nil
 		}
 	}
 
@@ -225,26 +225,22 @@ func (chain *Chain) getAllAcknowledgements(
 		return nil, err
 	}
 	for _, data := range logsData {
-		packetMap := map[string]interface{}{}
-		if err := parsedHandlerABI.UnpackIntoMap(packetMap, abiWriteAcknowledgement.Name, data); err != nil {
+		packet := new(WriteAcknowledgementEvent)
+		if err := parsedHandlerABI.UnpackIntoInterface(packet, abiWriteAcknowledgement.Name, data); err != nil {
+			fmt.Println("============================== Unpack WriteAcknowledgementEvent error: ", err)
 			return nil, err
 		}
-		for _, v := range packetMap {
-			values, ok := v.([]interface{})
-			if !ok {
-				return nil, fmt.Errorf("invalid type: got %T", v)
-			}
-			if len(values) != 4 {
-				return nil, fmt.Errorf("unexpected values: %v", values)
-			}
-			if dstPortID == values[0].(string) && dstChannel == values[1].(string) {
-				acks = append(acks, PacketAcknowledgement{
-					Sequence: values[2].(uint64),
-					Data:     values[3].([]byte),
-				})
-			}
+		fmt.Printf("============================== getAllAcknowledgements event: %+v\n", packet)
+
+		if dstPortID == packet.DestinationPortId && dstChannel == packet.DestinationChannel {
+			fmt.Println("============================== getAllAcknowledgements got packet, ", "sequence: ", packet.Sequence, "acknowledgement: ", packet.Acknowledgement)
+			acks = append(acks, PacketAcknowledgement{
+				Sequence: packet.Sequence,
+				Data:     packet.Acknowledgement,
+			})
 		}
 	}
+	fmt.Println("============================== getAllAcknowledgements success")
 	return acks, nil
 }
 
