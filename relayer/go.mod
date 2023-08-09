@@ -12,7 +12,7 @@ require (
 	// use go bindings with geth v1.9.10, which works with solidity 6.0+
 	github.com/hyperledger-labs/yui-ibc-solidity v0.0.0-20220624103310-247f169b23ce
 	github.com/klauspost/cpuid v1.2.1 // indirect
-	github.com/mapdev33/yui-relayer v0.0.0-20230706060818-c9a795973bda
+	github.com/mapdev33/yui-relayer v0.0.0-20230801020109-22ee8c03b0ae
 	github.com/mapprotocol/atlas v1.1.5
 	github.com/mapprotocol/compass v1.0.0
 	github.com/mapprotocol/map-light-client v0.0.0-20230718023245-0712ad306bee
@@ -26,7 +26,7 @@ require (
 
 replace (
 	// github.com/hyperledger-labs/yui-relayer => github.com/mapdev33/yui-relayer v0.0.0-20230626061228-421c2830865b
-	github.com/cosmos/ibc-go => github.com/datachainlab/ibc-go v0.0.0-20220628103507-edfd6cd100c3
+	github.com/cosmos/ibc-go => github.com/neoiss/ibc-go v0.0.0-20230807134650-0064f7d25978
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.4
 	github.com/harmony-one/go-sdk => github.com/datachainlab/go-sdk v1.2.9-0.20220106070458-8ce5f5c807b2
 	github.com/hyperledger-labs/yui-ibc-solidity => github.com/neoiss/yui-ibc-solidity v0.0.0-20230717092519-3cec592602a5

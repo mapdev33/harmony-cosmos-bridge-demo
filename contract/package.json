@@ -6,8 +6,8 @@
     "node": "16.x"
   },
   "dependencies": {
-    "@neoiss/yui-ibc-solidity": "git+https://github.com/neoiss/yui-ibc-solidity.git#ff146b8dd90e686900d58131f8b81ea96818fee4",
-    "@neoiss/tendermint-sol": "git+https://github.com/neoiss/tendermint-sol.git#7378e4709d4485667b578b763fea4e3dd8f406c8"
+    "@neoiss/yui-ibc-solidity": "git+https://github.com/neoiss/yui-ibc-solidity.git#f49b5baee437eb02332953c7b421ace3718eef02",
+    "@neoiss/tendermint-sol": "git+https://github.com/neoiss/tendermint-sol.git#b51ac8f2856b9035e101734c9c30494b1e3a06b3"
   },
   "devDependencies": {
     "truffle": "^5.4.3",

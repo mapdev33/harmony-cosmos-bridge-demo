@@ -25,17 +25,43 @@ HMY_ADDRESS=0xA5241513DA9F4463F1d4874b548dFBAC29D91f34
 HMY_ADDRESS2=cosmos155jp2y76nazx8uw5sa94fr0m4s5aj8e5f65ghw
 BANK_ID=transfer/channel-0/samoleans
 
-echo "!!! Harmony -> Tendermint !!!"
+# =============================================== Harmony -> Tendermint ===============================================
+#echo "!!! Harmony -> Tendermint !!!"
+#
+#HMY_TOKEN_DENOM=$(${RLY} config show | jq -r ".chains[1].chain.token_address")
+#
+#echo "Before TM(${TM_ADDRESS}) balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
+#echo "Before MAP(${HMY_ADDRESS}) balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
+#${RLY} map tx transfer ibc01 ibc1 --amount 100 --denom ${HMY_TOKEN_DENOM} --receiver ${TM_ADDRESS}
+#sleep ${TX_INTERNAL}
+#retry 10 ${RLY} tx relay ibc01
+#sleep ${TX_INTERNAL}
+#retry 10 ${RLY} tx acks ibc01
+#sleep ${TX_INTERNAL}
+#echo "After TM(${TM_ADDRESS})) balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
+#echo "After MAP(${HMY_ADDRESS}) balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
+
+
+# =============================================== Tendermint -> Harmony ===============================================
+echo "!!! Tendermint -> Harmony !!!"
 
 HMY_TOKEN_DENOM=$(${RLY} config show | jq -r ".chains[1].chain.token_address")
 
-echo "Before TM(${TM_ADDRESS}) balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
-echo "Before MAP(${HMY_ADDRESS}) balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
-${RLY} map tx transfer ibc01 ibc1 --amount 100 --denom ${HMY_TOKEN_DENOM} --receiver ${TM_ADDRESS}
+echo "Before TM balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
+echo "Before Hmy balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
+
+echo "----------begin transfer ----------------"
+# transfer [path-name] [src-chain-id] [dst-chain-id] [amount] [dst-addr]
+${RLY} tx transfer ibc01 ibc0 ibc1 100samoleans ${HMY_ADDRESS2}
+echo "----------end transfer ----------------"
 sleep ${TX_INTERNAL}
-retry 10 ${RLY} tx relay ibc01
+echo "----------begin relay ----------------"
+retry 5 ${RLY} tx relay ibc01
+echo "----------end relay ----------------"
+sleep ${ACK_INTERNAL}
+echo "----------begin ack ----------------"
+retry 5 ${RLY} tx acks ibc01
+echo "----------end ack ----------------"
 sleep ${TX_INTERNAL}
-retry 10 ${RLY} tx acks ibc01
-sleep ${TX_INTERNAL}
-echo "After TM(${TM_ADDRESS})) balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
-echo "After MAP(${HMY_ADDRESS}) balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
+echo "After TM balance: $(${RLY} query balance ibc0 ${TM_ADDRESS})"
+echo "After Hmy balance: $(${RLY} map query balance ibc1 --owner ${HMY_ADDRESS} --bank-id ${HMY_TOKEN_DENOM})"
