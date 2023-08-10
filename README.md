@@ -92,3 +92,18 @@ make network
 make test
 make network-down
 ```
+
+
+# Modify the description
+
+1. add compile and copy contracts command (02f87a66)
+2. modify the script required for testing (07d29e71)
+3. modify the generation method of Commitment Key in the contract (https://github.com/neoiss/tendermint-sol/commit/b51ac8f2856b9035e101734c9c30494b1e3a06b3)
+4. modify the method of parsing contract events。(44994fd2)
+5. modify the format of the Acknowledgment byte array() (85d127c3)
+```go
+AcknowledgementResultBytes = []byte{170, 1, 1, 1}
+AcknowledgementErrorBytes  = []byte{178, 0, 0}
+```
+
+
